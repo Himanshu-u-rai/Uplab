@@ -13,7 +13,7 @@ A modern, responsive digital agency website built with Next.js 15, TypeScript, a
 
 ## 🚀 Live Demo
 
-Visit the live website: **[https://himanshu-u-rai.github.io/Uplab/](https://himanshu-u-rai.github.io/Uplab/)**
+Visit the live website: **[https://uplab.dev/](https://uplab.dev/)**
 
 ## 📱 Mobile Optimized
 
