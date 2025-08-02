@@ -1,31 +1,41 @@
-# Uplab - Digital Agency Website
+# Uplab - Digital Agency Website 🚀
 
-A modern, fully responsive website for Uplab digital agency built with Next.js 14, TypeScript, and Tailwind CSS. The site features smooth animations, glassmorphism design elements, and modern UI/UX patterns.
+A modern, responsive digital agency website built with Next.js 15, TypeScript, and Tailwind CSS. Features stunning animations, mobile-first design, and optimized performance.
 
-## 🚀 Features
+## 🌟 Features
 
-- **Modern Design**: Clean, professional design with glassmorphism effects and smooth gradients
-- **Fully Responsive**: Optimized for all devices and screen sizes
-- **Smooth Animations**: Powered by Framer Motion for engaging user interactions
-- **Performance Optimized**: Built with Next.js 14 for optimal loading speeds
-- **SEO Ready**: Comprehensive meta tags and structured data
-- **Accessibility**: WCAG compliant with proper ARIA labels and keyboard navigation
+- **Modern Design**: Clean, professional interface with smooth animations
+- **Mobile Responsive**: Fully optimized for all device sizes with custom breakpoints
+- **Next.js 15**: Latest features with App Router and TypeScript
+- **Tailwind CSS**: Utility-first styling with custom design system
+- **Framer Motion**: Smooth, performant animations throughout
+- **GitHub Pages**: Automated deployment with GitHub Actions
 
-## 🛠 Tech Stack
+## 🚀 Live Demo
 
-- **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS with custom design system
+Visit the live website: **[https://himanshu-u-rai.github.io/Uplab/](https://himanshu-u-rai.github.io/Uplab/)**
+
+## 📱 Mobile Optimized
+
+- Custom `xs: 475px` breakpoint for enhanced mobile control
+- Touch-friendly interface with proper target sizes
+- Mobile-first responsive design patterns
+- Optimized typography and spacing for all screen sizes
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS v3.4 with custom configuration
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
-- **UI Components**: Headless UI, Radix UI
-- **Deployment**: Vercel (recommended)
+- **Deployment**: GitHub Pages with automated workflows
 
 ## 📦 Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/uplab.git
-cd uplab
+git clone https://github.com/Himanshu-u-rai/Uplab.git
+cd Uplab
 ```
 
 2. Install dependencies:
