@@ -12,7 +12,7 @@ const testimonials = [
     name: 'Priya Sharma',
     role: 'CEO & Founder',
     company: 'StyleVogue Fashion',
-    avatar: getImagePath('testimonials', 'priya-sharma.jpg'),
+    avatar: getImagePath('testimonials', 'female.png'),
     rating: 5,
     text: 'Uplab completely transformed our fashion e-commerce platform. Their understanding of Indian market dynamics and modern UI/UX design helped us achieve 400% growth in online sales within 6 months. Absolutely phenomenal work!',
     projectType: 'Fashion E-commerce Platform',
@@ -25,7 +25,7 @@ const testimonials = [
     name: 'Arjun Mehta',
     role: 'Founder & CTO',
     company: 'FoodieExpress',
-    avatar: getImagePath('testimonials', 'arjun-mehta.jpg'),
+    avatar: getImagePath('testimonials', 'male.png'),
     rating: 5,
     text: 'Working with Uplab was an incredible experience. They developed our food delivery app with amazing attention to detail. The app now serves over 200,000+ users across 15+ cities. Their technical expertise is unmatched!',
     projectType: 'Food Delivery Mobile App',
@@ -38,7 +38,7 @@ const testimonials = [
     name: 'Kavya Patel',
     role: 'Marketing Head',
     company: 'EduTech Solutions',
-    avatar: getImagePath('testimonials', 'kavya-patel.jpg'),
+    avatar: getImagePath('testimonials', 'female.png'),
     rating: 5,
     text: 'Uplab\'s digital marketing strategies revolutionized our online education platform. Their campaigns helped us reach millions of students across India. The ROI exceeded our expectations by 300%!',
     projectType: 'EdTech Digital Marketing',
@@ -51,7 +51,7 @@ const testimonials = [
     name: 'Rohit Agarwal',
     role: 'Co-founder',
     company: 'FinSecure Banking',
-    avatar: getImagePath('testimonials', 'rohit-agarwal.jpg'),
+    avatar: getImagePath('testimonials', 'male.png'),
     rating: 5,
     text: 'Uplab built our secure banking platform with exceptional attention to security and compliance. Their expertise in fintech development helped us launch successfully with zero security incidents and 99.9% uptime.',
     projectType: 'Secure Banking Platform',
@@ -64,7 +64,7 @@ const testimonials = [
     name: 'Sneha Reddy',
     role: 'Brand Director',
     company: 'Heritage Crafts Studio',
-    avatar: getImagePath('testimonials', 'sneha-reddy.jpg'),
+    avatar: getImagePath('testimonials', 'female.png'),
     rating: 5,
     text: 'The website Uplab created for our traditional crafts business perfectly blends our cultural heritage with modern design. It beautifully showcases our artisan work and has increased our online orders by 250%.',
     projectType: 'Heritage Crafts Website',
@@ -233,11 +233,13 @@ export default function EnhancedTestimonialsSection() {
                     <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 rounded-2xl sm:rounded-3xl relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
                       {/* Profile Image */}
                       <div className={`w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br ${currentTestimonial.gradient} flex items-center justify-center shadow-xl p-1 mb-4 sm:mb-6`}>
-                        <div className="w-full h-full rounded-full bg-gray-300 flex items-center justify-center">
-                          <div className="text-gray-600 font-bold text-xl sm:text-2xl">
-                            {currentTestimonial.name.split(' ').map(n => n[0]).join('')}
-                          </div>
-                        </div>
+                        <Image 
+                          src={currentTestimonial.avatar}
+                          alt={currentTestimonial.name}
+                          width={150}
+                          height={150}
+                          className="w-full h-full rounded-full object-cover"
+                        />
                       </div>
                       
                       {/* Quote Icon */}

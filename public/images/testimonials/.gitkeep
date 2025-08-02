@@ -1,8 +1,12 @@
 # Testimonial Images
 
-Place client photos and testimonial-related images here:
-- Client headshots (200x200px, will be displayed as circles)
-- Company logos (150x50px with transparent background)
-- Success story images
+Currently using:
+- male.png - Used for male testimonials (Arjun Mehta, Rohit Agarwal)
+- female.png - Used for female testimonials (Priya Sharma, Kavya Patel, Sneha Reddy)
 
-Example naming: client-sarah-johnson.jpg, company-logo-techcorp.png
+Guidelines:
+- Images should be square (1:1 aspect ratio)
+- Recommended size: 200x200px or larger
+- Format: PNG, JPG, or WebP
+- Professional headshots work best
+- Images will be displayed in circular format
