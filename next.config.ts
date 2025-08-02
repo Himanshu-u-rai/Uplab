@@ -6,8 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/Uplab' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/Uplab/' : '',
+  // Removed basePath and assetPrefix for custom domain (uplab.dev)
   eslint: {
     ignoreDuringBuilds: true,
   },
