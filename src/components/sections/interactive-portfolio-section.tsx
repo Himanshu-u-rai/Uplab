@@ -214,8 +214,8 @@ export default function InteractivePortfolioSection() {
           </div>
         </motion.div>
 
-        {/* Enhanced Projects Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-20">
+        {/* Enhanced Projects Grid - Mobile Responsive */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20">
           <AnimatePresence mode="wait">
             {filteredProjects.map((project, index) => (
               <motion.div

@@ -12,27 +12,27 @@ export default function Home() {
     <main className="min-h-screen">
       <Header />
       
-      <section id="home">
+      <section id="home" className="relative">
         <AdvancedHeroSection />
       </section>
       
-      <section id="services">
+      <section id="services" className="relative">
         <EnhancedServicesSection />
       </section>
       
-      <section id="portfolio">
+      <section id="portfolio" className="relative">
         <InteractivePortfolioSection />
       </section>
       
-      <section id="about">
+      <section id="about" className="relative">
         <EnhancedAboutSection />
       </section>
       
-      <section id="testimonials">
+      <section id="testimonials" className="relative">
         <EnhancedTestimonialsSection />
       </section>
       
-      <section id="contact">
+      <section id="contact" className="relative">
         <SimpleContactSection />
       </section>
       

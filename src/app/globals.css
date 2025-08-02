@@ -53,10 +53,12 @@
     font-feature-settings: "cv11", "ss01";
     font-variation-settings: "opsz" 32;
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
 }
 

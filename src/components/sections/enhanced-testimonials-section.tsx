@@ -221,25 +221,23 @@ export default function EnhancedTestimonialsSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
-                className="grid lg:grid-cols-2 gap-12 items-center"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center"
               >
                 {/* Image Section */}
                 <div className="relative">
                   <motion.div
-                    className={`aspect-square rounded-3xl overflow-hidden bg-gradient-to-br ${currentTestimonial.gradient} p-1 shadow-2xl`}
+                    className={`aspect-square rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br ${currentTestimonial.gradient} p-1 shadow-2xl max-w-sm mx-auto lg:max-w-none`}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 rounded-3xl relative overflow-hidden flex flex-col items-center justify-center p-8">
+                    <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 rounded-2xl sm:rounded-3xl relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
                       {/* Profile Image */}
-                      <div className={`w-40 h-40 rounded-full bg-gradient-to-br ${currentTestimonial.gradient} flex items-center justify-center shadow-xl p-1 mb-6`}>
-                        <Image 
-                          src={currentTestimonial.avatar}
-                          alt={currentTestimonial.name}
-                          width={150}
-                          height={150}
-                          className="w-full h-full rounded-full object-cover"
-                        />
+                      <div className={`w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br ${currentTestimonial.gradient} flex items-center justify-center shadow-xl p-1 mb-4 sm:mb-6`}>
+                        <div className="w-full h-full rounded-full bg-gray-300 flex items-center justify-center">
+                          <div className="text-gray-600 font-bold text-xl sm:text-2xl">
+                            {currentTestimonial.name.split(' ').map(n => n[0]).join('')}
+                          </div>
+                        </div>
                       </div>
                       
                       {/* Quote Icon */}
