@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import "./modern-styles.css";
@@ -15,6 +15,12 @@ const poppins = Poppins({
   subsets: ["latin"],
   display: 'swap',
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Uplab - Digital Agency That Delivers",
@@ -37,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://uplab.agency',
+    url: 'https://uplab.dev',
     title: 'Uplab - Digital Agency That Delivers',
     description: 'Transform your digital presence with exceptional web development, mobile apps, and digital marketing services.',
     siteName: 'Uplab',
@@ -47,11 +53,6 @@ export const metadata: Metadata = {
     title: 'Uplab - Digital Agency That Delivers',
     description: 'Transform your digital presence with exceptional web development, mobile apps, and digital marketing services.',
     creator: '@uplab_agency',
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
   },
 };
 
