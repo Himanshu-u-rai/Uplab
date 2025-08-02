@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { Sparkles, ArrowRight, Star, TrendingUp } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 export default function AdvancedHeroSection() {
   const containerRef = useRef(null)
@@ -78,9 +78,9 @@ export default function AdvancedHeroSection() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="mb-6 sm:mb-8"
+            className="mb-4 sm:mb-6 md:mb-8"
           >
-            <h1 className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-white leading-none tracking-tight">
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-none tracking-tight">
               <motion.span
                 className="block"
                 initial={{ opacity: 0, x: -100 }}
@@ -98,7 +98,7 @@ export default function AdvancedHeroSection() {
                 Excellence
               </motion.span>
               <motion.span
-                className="block text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-white/80 mt-2 sm:mt-4"
+                className="block text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/80 mt-2 sm:mt-4"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1 }}
@@ -113,7 +113,7 @@ export default function AdvancedHeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/70 mb-6 sm:mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-2 sm:px-4"
+            className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-white/70 mb-4 sm:mb-6 md:mb-8 lg:mb-12 max-w-3xl lg:max-w-4xl mx-auto leading-relaxed font-light px-2 sm:px-4"
           >
             We craft exceptional digital experiences that drive growth, 
             engagement, and success in the modern digital landscape.
@@ -124,13 +124,13 @@ export default function AdvancedHeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.4 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center mb-8 sm:mb-12 md:mb-16 px-2 sm:px-4"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 md:mb-12 lg:mb-16 px-2 sm:px-4"
           >
             <motion.a
               href="#contact"
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-base sm:text-lg md:text-xl rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden cursor-pointer inline-block w-full sm:w-auto text-center max-w-xs sm:max-w-none"
+              className="group relative px-5 sm:px-6 md:px-8 lg:px-12 py-3 sm:py-4 md:py-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl rounded-lg sm:rounded-xl md:rounded-2xl shadow-2xl overflow-hidden cursor-pointer inline-block w-full sm:w-auto text-center max-w-sm sm:max-w-none"
               onClick={(e) => {
                 e.preventDefault()
                 document.getElementById('contact')?.scrollIntoView({ 
@@ -146,7 +146,7 @@ export default function AdvancedHeroSection() {
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <ArrowRight className="w-4 h-4 sm:w-5 h-5 md:w-6 h-6" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </motion.div>
               </div>
               
@@ -178,34 +178,6 @@ export default function AdvancedHeroSection() {
         </div>
       </motion.div>
 
-      {/* Advanced Scroll Indicator - Mobile Optimized */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.5 }}
-        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
-        onClick={() => {
-          document.getElementById('services')?.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-          })
-        }}
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-1 sm:gap-2 text-white/60 hover:text-white/80 transition-colors duration-300"
-        >
-          <span className="text-xs sm:text-sm font-medium">Scroll to explore</span>
-          <div className="w-5 h-8 sm:w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1 hover:border-white/50 transition-colors duration-300">
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-2 sm:h-3 bg-white/60 rounded-full"
-            />
-          </div>
-        </motion.div>
-      </motion.div>
     </section>
   )
 }

@@ -222,46 +222,47 @@ export default function ProjectsPage() {
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-3 sm:opacity-5" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 relative z-10">
         {/* Header - Mobile Optimized */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto mb-8 sm:mb-12 md:mb-16"
+          className="max-w-6xl mx-auto mb-6 sm:mb-8 md:mb-12 lg:mb-16"
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors mb-6 sm:mb-8 text-sm sm:text-base"
+            className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors mb-4 sm:mb-6 md:mb-8 text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Home
+            <span className="hidden xs:inline">Back to Home</span>
+            <span className="xs:hidden">Back</span>
           </Link>
 
-          <div className="text-center mb-8 sm:mb-12">
+          <div className="text-center mb-6 sm:mb-8 md:mb-12">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-12 h-12 sm:w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6"
+              className="w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg xs:rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-6"
             >
-              <Award className="w-6 h-6 sm:w-8 h-8 text-white" />
+              <Award className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-white" />
             </motion.div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight">
               Our Complete
               <br />
               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Project Portfolio
               </span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-2">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2 sm:px-4">
               Explore our comprehensive collection of successful projects across web development, 
               mobile apps, and digital marketing campaigns that have transformed businesses.
             </p>
           </div>
 
           {/* Stats - Mobile Optimized */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8 md:mb-12">
             {[
               { label: 'Total Projects', value: allProjects.length.toString(), icon: Award },
               { label: 'Happy Clients', value: '50+', icon: Users },
@@ -275,8 +276,8 @@ export default function ProjectsPage() {
                 transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                 className="bg-white/5 backdrop-blur-xl rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 border border-white/10 text-center"
               >
-                <stat.icon className="w-4 h-4 sm:w-5 h-5 md:w-6 h-6 text-purple-400 mx-auto mb-1 sm:mb-2" />
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">{stat.value}</div>
+                <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-purple-400 mx-auto mb-1 sm:mb-2" />
+                <div className="text-base xs:text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">{stat.value}</div>
                 <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
               </motion.div>
             ))}
@@ -288,15 +289,15 @@ export default function ProjectsPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="max-w-6xl mx-auto mb-8 sm:mb-12"
+          className="max-w-6xl mx-auto mb-6 sm:mb-8 md:mb-12"
         >
-          <div className="bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10">
+          <div className="bg-white/5 backdrop-blur-xl rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 border border-white/10">
             {/* Search - Mobile Optimized */}
-            <div className="relative mb-4 sm:mb-6">
-              <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 h-5" />
+            <div className="relative mb-3 sm:mb-4 md:mb-6">
+              <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
               <input
                 type="text"
-                placeholder="Search projects by name, technology, or description..."
+                placeholder="Search projects..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all text-sm sm:text-base"
@@ -315,7 +316,7 @@ export default function ProjectsPage() {
                       : 'bg-white/10 text-gray-300 hover:bg-white/20'
                   }`}
                 >
-                  <category.icon className="w-3 h-3 sm:w-4 h-4" />
+                  <category.icon className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="hidden xs:inline">{category.name}</span>
                   <span className="xs:hidden">{category.name.split(' ')[0]}</span>
                   <span className="bg-white/20 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs">

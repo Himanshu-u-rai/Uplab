@@ -141,25 +141,25 @@ Sent from Uplab Contact Form
         ))}
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header - Mobile Optimized */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+          className="text-center mb-6 sm:mb-8 md:mb-12"
         >
           <motion.div
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-purple-400/30 rounded-full px-4 sm:px-6 py-2 sm:py-3 mb-4 sm:mb-6"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-purple-400/30 rounded-full px-3 sm:px-4 md:px-6 py-2 sm:py-3 mb-3 sm:mb-4 md:mb-6"
           >
-            <Mail className="w-4 h-4 sm:w-5 h-5 text-purple-400" />
-            <span className="text-purple-300 font-medium text-sm sm:text-base">Get In Touch</span>
+            <Mail className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-purple-400" />
+            <span className="text-purple-300 font-medium text-xs xs:text-sm sm:text-base">Get In Touch</span>
           </motion.div>
           
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight">
             Let's Build Something
             <br />
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -167,7 +167,7 @@ Sent from Uplab Contact Form
             </span>
           </h2>
           
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-2">
+          <p className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2 sm:px-4">
             Ready to transform your digital presence? Share your project details with us and let's create something extraordinary that drives real results for your business.
           </p>
         </motion.div>
@@ -179,7 +179,7 @@ Sent from Uplab Contact Form
           transition={{ duration: 0.8, delay: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 border border-white/10 shadow-2xl">
+          <div className="bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 border border-white/10 shadow-2xl">
             <AnimatePresence mode="wait">
               {!isSubmitted ? (
                 <motion.div
@@ -187,25 +187,25 @@ Sent from Uplab Contact Form
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <div className="text-center mb-6 sm:mb-8">
+                  <div className="text-center mb-4 sm:mb-6 md:mb-8">
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={isInView ? { scale: 1 } : {}}
                       transition={{ duration: 0.6, delay: 0.9 }}
-                      className="w-12 h-12 sm:w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4"
+                      className="w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg xs:rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4"
                     >
-                      <Mail className="w-6 h-6 sm:w-8 h-8 text-white" />
+                      <Mail className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-white" />
                     </motion.div>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-4">Send Us a Message</h3>
-                    <p className="text-gray-400 text-sm sm:text-base md:text-lg">
+                    <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-4">Send Us a Message</h3>
+                    <p className="text-gray-400 text-xs xs:text-sm sm:text-base md:text-lg">
                       Tell us about your project and we'll get back to you within 24 hours
                     </p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                  <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 md:space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
                           Full Name *
                         </label>
                         <input
@@ -220,7 +220,7 @@ Sent from Uplab Contact Form
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
                           Email Address *
                         </label>
                         <input
@@ -235,7 +235,7 @@ Sent from Uplab Contact Form
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
                           Company Name
                         </label>
                         <input

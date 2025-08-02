@@ -109,14 +109,15 @@ export default function EnhancedTestimonialsSection() {
   }, [autoPlay, currentIndex])
 
   return (
-    <section ref={sectionRef} className="py-32 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <section ref={sectionRef} className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
+      {/* Animated Background Elements - Mobile Optimized */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-0 left-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-purple-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" />
+        <div className="absolute top-1/2 right-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-pink-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute bottom-0 left-1/3 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-cyan-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
         
-        {/* Floating Particles */}
+        {/* Floating Particles - Hidden on mobile */}
+        <div className="hidden sm:block">
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
@@ -136,31 +137,33 @@ export default function EnhancedTestimonialsSection() {
             }}
           />
         ))}
+        </div>
       </div>
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        {/* Enhanced Section Header */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Enhanced Section Header - Mobile Optimized */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-xl border border-purple-500/20 text-purple-300 text-sm font-semibold mb-6"
+            className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-xl border border-purple-500/20 text-purple-300 text-xs sm:text-sm font-semibold mb-4 sm:mb-6"
           >
-            <Quote className="w-5 h-5" />
-            Client Stories
+            <Quote className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden xs:inline">Client Stories</span>
+            <span className="xs:hidden">Stories</span>
           </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 sm:mb-8 leading-tight"
           >
             <span className="block">Loved by</span>
             <span className="block bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
@@ -172,19 +175,19 @@ export default function EnhancedTestimonialsSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2"
           >
             Don't just take our word for it. Here's what our clients say about 
             working with Uplab and the results we've achieved together.
           </motion.p>
         </motion.div>
 
-        {/* Stats Section */}
+        {/* Stats Section - Mobile Optimized */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 md:mb-20"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -194,24 +197,24 @@ export default function EnhancedTestimonialsSection() {
               transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
               className="text-center group"
             >
-              <div className="relative mb-4">
-                <div className="w-16 h-16 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <stat.icon className="w-8 h-8 text-white" />
+              <div className="relative mb-3 sm:mb-4">
+                <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <stat.icon className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <div className="absolute inset-0 w-16 h-16 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300" />
+                <div className="absolute inset-0 w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl sm:rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300" />
               </div>
-              <div className="text-3xl font-bold text-white mb-2">{stat.number}</div>
-              <div className="text-gray-400 text-sm">{stat.label}</div>
+              <div className="text-xl xs:text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">{stat.number}</div>
+              <div className="text-gray-400 text-xs xs:text-sm">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Main Testimonial Display */}
+        {/* Main Testimonial Display - Mobile Optimized */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mb-20"
+          className="mb-12 sm:mb-16 md:mb-20"
         >
           <div className="max-w-6xl mx-auto">
             <AnimatePresence mode="wait">
@@ -223,16 +226,16 @@ export default function EnhancedTestimonialsSection() {
                 transition={{ duration: 0.5 }}
                 className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center"
               >
-                {/* Image Section */}
+                {/* Image Section - Mobile Optimized */}
                 <div className="relative">
                   <motion.div
-                    className={`aspect-square rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br ${currentTestimonial.gradient} p-1 shadow-2xl max-w-sm mx-auto lg:max-w-none`}
+                    className={`aspect-square rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden bg-gradient-to-br ${currentTestimonial.gradient} p-1 shadow-2xl max-w-xs sm:max-w-sm mx-auto lg:max-w-none`}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 rounded-2xl sm:rounded-3xl relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+                    <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 rounded-xl sm:rounded-2xl lg:rounded-3xl relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
                       {/* Profile Image */}
-                      <div className={`w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br ${currentTestimonial.gradient} flex items-center justify-center shadow-xl p-1 mb-4 sm:mb-6`}>
+                      <div className={`w-24 h-24 xs:w-28 xs:h-28 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br ${currentTestimonial.gradient} flex items-center justify-center shadow-xl p-1 mb-3 sm:mb-4 lg:mb-6`}>
                         <Image 
                           src={currentTestimonial.avatar}
                           alt={currentTestimonial.name}

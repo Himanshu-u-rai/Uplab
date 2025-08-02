@@ -98,28 +98,29 @@ export default function EnhancedServicesSection() {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16 md:mb-24"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 text-xs sm:text-sm font-semibold mb-4 sm:mb-6"
+            className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 text-xs sm:text-sm font-semibold mb-3 sm:mb-4 md:mb-6"
           >
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             >
-              <Zap className="w-4 h-4 sm:w-5 h-5" />
+              <Zap className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5" />
             </motion.div>
-            Our Expertise
+            <span className="hidden xs:inline">Our Expertise</span>
+            <span className="xs:hidden">Expertise</span>
           </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-4 sm:mb-6 md:mb-8 leading-tight"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-3 sm:mb-4 md:mb-6 leading-tight"
           >
             <span className="block">Services That</span>
             <span className="block bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 bg-clip-text text-transparent">
@@ -131,122 +132,224 @@ export default function EnhancedServicesSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-2"
+            className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-2 sm:px-4"
           >
             We deliver comprehensive digital solutions that transform businesses 
             and create exceptional user experiences.
           </motion.p>
         </motion.div>
 
-        {/* Enhanced Services Grid - Mobile First */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 mb-12 sm:mb-16 md:mb-20">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: service.delay }}
-              onHoverStart={() => setHoveredService(index)}
-              onHoverEnd={() => setHoveredService(null)}
-              className="group relative"
-            >
-              <div className={`relative p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-auto sm:h-[420px] flex flex-col ${
-                hoveredService === index ? 'scale-102 -translate-y-1' : ''
-              }`}>
-                {/* Animated Background */}
+        {/* Enhanced Services - Mobile Carousel + Desktop Grid */}
+        <div className="mb-8 sm:mb-12 md:mb-16">
+          {/* Mobile Horizontal Carousel */}
+          <div className="block md:hidden">
+            <div className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide px-4">
+              {services.map((service, index) => (
                 <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-3 transition-opacity duration-300`}
-                  animate={{
-                    scale: hoveredService === index ? [1, 1.1, 1] : 1,
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                
-                {/* Floating Elements - Hidden on mobile */}
-                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block">
-                  {[...Array(3)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className={`absolute w-1.5 h-1.5 bg-gradient-to-r ${service.color} rounded-full`}
-                      style={{
-                        top: `${i * 10}px`,
-                        right: `${i * 8}px`,
-                      }}
-                      animate={{
-                        y: [-3, -10, -3],
-                        opacity: [0.3, 1, 0.3],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: i * 0.3,
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {/* Icon with Advanced Animation - Mobile Optimized */}
-                <motion.div
-                  className={`inline-flex p-2 sm:p-3 rounded-lg bg-gradient-to-br ${service.color} text-white mb-4 sm:mb-6 relative overflow-hidden self-start`}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: service.delay }}
+                  onHoverStart={() => setHoveredService(index)}
+                  onHoverEnd={() => setHoveredService(null)}
+                  className="group relative flex-shrink-0 w-[calc(100vw-4rem)] max-w-sm snap-center"
                 >
-                  <service.icon className="w-5 h-5 sm:w-6 h-6 relative z-10" />
-                  
-                  {/* Icon Glow Effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-white/20 rounded-lg"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={hoveredService === index ? { scale: 1, opacity: 1 } : {}}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.div>
+                  <div className={`relative p-4 rounded-xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-[320px] flex flex-col ${
+                    hoveredService === index ? 'scale-102 -translate-y-1' : ''
+                  }`}>
+                    {/* Animated Background */}
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-3 transition-opacity duration-300`}
+                      animate={{
+                        scale: hoveredService === index ? [1, 1.1, 1] : 1,
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    
+                    {/* Icon with Advanced Animation */}
+                    <motion.div
+                      className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${service.color} text-white mb-4 relative overflow-hidden self-start`}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <service.icon className="w-5 h-5 relative z-10" />
+                      
+                      {/* Icon Glow Effect */}
+                      <motion.div
+                        className="absolute inset-0 bg-white/20 rounded-lg"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={hoveredService === index ? { scale: 1, opacity: 1 } : {}}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
 
-                {/* Content - Mobile Optimized */}
-                <div className="flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
-                  <div className="flex-1">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-gray-800 leading-tight">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-3 sm:mb-4">
-                      {service.description}
-                    </p>
+                    {/* Content */}
+                    <div className="flex-1 flex flex-col justify-between space-y-2">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-gray-800 leading-tight">
+                          {service.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm leading-relaxed mb-3 line-clamp-3">
+                          {service.description}
+                        </p>
 
-                    {/* Features with Enhanced Animation - Mobile Layout */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <motion.div
-                          key={featureIndex}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={isInView ? { opacity: 1, x: 0 } : {}}
-                          transition={{ duration: 0.5, delay: service.delay + featureIndex * 0.1 }}
-                          className="flex items-center text-xs sm:text-sm text-gray-600 group-hover:text-gray-700"
-                        >
-                          <div
-                            className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color} mr-2 flex-shrink-0`}
-                          />
-                          <span className="truncate">{feature}</span>
-                        </motion.div>
-                      ))}
+                        {/* Features */}
+                        <div className="grid grid-cols-1 gap-1">
+                          {service.features.slice(0, 3).map((feature, featureIndex) => (
+                            <motion.div
+                              key={featureIndex}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={isInView ? { opacity: 1, x: 0 } : {}}
+                              transition={{ duration: 0.5, delay: service.delay + featureIndex * 0.1 }}
+                              className="flex items-center text-xs text-gray-600 group-hover:text-gray-700"
+                            >
+                              <div
+                                className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color} mr-2 flex-shrink-0`}
+                              />
+                              <span className="line-clamp-1">{feature}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Stats */}
+                      <div className="pt-3 border-t border-gray-100 mt-auto">
+                        <div className="grid grid-cols-2 gap-3 text-center">
+                          <div>
+                            <div className="text-sm font-bold text-gray-900">{service.stats.satisfaction}%</div>
+                            <div className="text-xs text-gray-500">Satisfaction</div>
+                          </div>
+                          <div>
+                            <div className="text-sm font-bold text-gray-900">{service.stats.delivery}</div>
+                            <div className="text-xs text-gray-500">Delivery</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Mobile Scroll Indicator */}
+            <div className="flex justify-center mt-6 px-4">
+              <div className="flex gap-2">
+                {services.map((_, index) => (
+                  <div key={index} className="w-2 h-2 rounded-full bg-gray-300"></div>
+                ))}
+              </div>
+            </div>
+          </div>
 
-                  {/* Stats Section - Mobile Optimized */}
-                  <div className="pt-3 sm:pt-4 border-t border-gray-100 mt-auto">
-                    <div className="grid grid-cols-2 gap-3 sm:gap-4 text-center">
-                      <div>
-                        <div className="text-base sm:text-lg font-bold text-gray-900">{service.stats.satisfaction}%</div>
-                        <div className="text-xs text-gray-500">Satisfaction</div>
+          {/* Desktop Grid */}
+          <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8">
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: service.delay }}
+                onHoverStart={() => setHoveredService(index)}
+                onHoverEnd={() => setHoveredService(null)}
+                className="group relative"
+              >
+                <div className={`relative p-6 md:p-8 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden min-h-[380px] md:h-[420px] flex flex-col ${
+                  hoveredService === index ? 'scale-102 -translate-y-1' : ''
+                }`}>
+                  {/* Animated Background */}
+                  <motion.div
+                    className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-3 transition-opacity duration-300`}
+                    animate={{
+                      scale: hoveredService === index ? [1, 1.1, 1] : 1,
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  
+                  {/* Floating Elements */}
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {[...Array(3)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className={`absolute w-1.5 h-1.5 bg-gradient-to-r ${service.color} rounded-full`}
+                        style={{
+                          top: `${i * 10}px`,
+                          right: `${i * 8}px`,
+                        }}
+                        animate={{
+                          y: [-3, -10, -3],
+                          opacity: [0.3, 1, 0.3],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: i * 0.3,
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Icon with Advanced Animation */}
+                  <motion.div
+                    className={`inline-flex p-3 rounded-lg bg-gradient-to-br ${service.color} text-white mb-6 relative overflow-hidden self-start`}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <service.icon className="w-6 h-6 relative z-10" />
+                    
+                    {/* Icon Glow Effect */}
+                    <motion.div
+                      className="absolute inset-0 bg-white/20 rounded-lg"
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={hoveredService === index ? { scale: 1, opacity: 1 } : {}}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.div>
+
+                  {/* Content */}
+                  <div className="flex-1 flex flex-col justify-between space-y-4">
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-gray-800 leading-tight">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-600 text-base leading-relaxed mb-4 line-clamp-3">
+                        {service.description}
+                      </p>
+
+                      {/* Features */}
+                      <div className="grid grid-cols-1 gap-2">
+                        {service.features.slice(0, 4).map((feature, featureIndex) => (
+                          <motion.div
+                            key={featureIndex}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={isInView ? { opacity: 1, x: 0 } : {}}
+                            transition={{ duration: 0.5, delay: service.delay + featureIndex * 0.1 }}
+                            className="flex items-center text-sm text-gray-600 group-hover:text-gray-700"
+                          >
+                            <div
+                              className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color} mr-2 flex-shrink-0`}
+                            />
+                            <span className="line-clamp-1">{feature}</span>
+                          </motion.div>
+                        ))}
                       </div>
-                      <div>
-                        <div className="text-base sm:text-lg font-bold text-gray-900">{service.stats.delivery}</div>
-                        <div className="text-xs text-gray-500">Delivery</div>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="pt-4 border-t border-gray-100 mt-auto">
+                      <div className="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                          <div className="text-lg font-bold text-gray-900">{service.stats.satisfaction}%</div>
+                          <div className="text-xs text-gray-500">Satisfaction</div>
+                        </div>
+                        <div>
+                          <div className="text-lg font-bold text-gray-900">{service.stats.delivery}</div>
+                          <div className="text-xs text-gray-500">Delivery</div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Enhanced Achievement Stats - Mobile Optimized */}
@@ -256,7 +359,7 @@ export default function EnhancedServicesSection() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="relative"
         >
-          <div className="bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 text-white relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5 sm:opacity-10">
               <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -269,7 +372,7 @@ export default function EnhancedServicesSection() {
               </svg>
             </div>
 
-            <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
+            <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-center">
               {achievements.map((achievement, index) => (
                 <motion.div
                   key={index}
@@ -279,15 +382,15 @@ export default function EnhancedServicesSection() {
                   className="group"
                 >
                   <motion.div
-                    className={`inline-flex p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm mb-3 sm:mb-4 md:mb-6 ${achievement.color}`}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className={`inline-flex p-2 xs:p-3 sm:p-4 rounded-lg xs:rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-sm mb-2 xs:mb-3 sm:mb-4 ${achievement.color}`}
+                    whileHover={{ scale: 1.05, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <achievement.icon className="w-5 h-5 sm:w-6 h-6 md:w-8 h-8" />
+                    <achievement.icon className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
                   </motion.div>
                   
                   <motion.div
-                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-1 sm:mb-2 md:mb-3"
+                    className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: 1 + index * 0.1 }}
@@ -295,7 +398,7 @@ export default function EnhancedServicesSection() {
                     {achievement.value}
                   </motion.div>
                   
-                  <div className="text-white/80 font-medium text-xs sm:text-sm md:text-base">{achievement.label}</div>
+                  <div className="text-white/80 font-medium text-xs sm:text-sm">{achievement.label}</div>
                 </motion.div>
               ))}
             </div>

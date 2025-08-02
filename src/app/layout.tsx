@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import "./modern-styles.css";
 
 const inter = Inter({
   variable: "--font-inter",
