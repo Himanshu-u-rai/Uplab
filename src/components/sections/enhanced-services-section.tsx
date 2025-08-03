@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { 
   Code2, 
   Smartphone, 
@@ -68,8 +68,48 @@ const achievements = [
 
 export default function EnhancedServicesSection() {
   const [hoveredService, setHoveredService] = useState<number | null>(null)
+  const [isPaused, setIsPaused] = useState(false)
   const sectionRef = useRef(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
+
+  // Auto-scrolling effect for mobile only
+  useEffect(() => {
+    const carousel = carouselRef.current
+    
+    // Check if we're on mobile (screen width < 768px)
+    const isMobile = window.innerWidth < 768
+    
+    if (!carousel || isPaused || !isMobile) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+      return
+    }
+
+    intervalRef.current = setInterval(() => {
+      const cardWidth = carousel.children[0]?.clientWidth || 0
+      const gap = 24 // 6 * 4 = 24px gap
+      const scrollAmount = cardWidth + gap
+      
+      // Check if we're at the end
+      if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth) {
+        // Reset to beginning
+        carousel.scrollTo({ left: 0, behavior: 'smooth' })
+      } else {
+        // Scroll to next card
+        carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+      }
+    }, 3000) // Auto-scroll every 3 seconds
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+  }, [isInView, isPaused])
 
   return (
     <section id="services" ref={sectionRef} className="pt-20 sm:pt-32 md:pt-48 pb-16 sm:pb-24 md:pb-32 bg-white relative overflow-hidden z-0">
@@ -143,49 +183,31 @@ export default function EnhancedServicesSection() {
         <div className="mb-8 sm:mb-12 md:mb-16">
           {/* Mobile Horizontal Carousel */}
           <div className="block md:hidden">
-            <div className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide px-4">
+            <div 
+              ref={carouselRef}
+              className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide px-4"
+            >
               {services.map((service, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, delay: service.delay }}
-                  onHoverStart={() => setHoveredService(index)}
-                  onHoverEnd={() => setHoveredService(null)}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="group relative flex-shrink-0 w-[calc(100vw-4rem)] max-w-sm snap-center"
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
                 >
-                  <div className={`relative p-4 rounded-xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-[320px] flex flex-col ${
-                    hoveredService === index ? 'scale-102 -translate-y-1' : ''
-                  }`}>
-                    {/* Animated Background */}
-                    <motion.div
-                      className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-3 transition-opacity duration-300`}
-                      animate={{
-                        scale: hoveredService === index ? [1, 1.1, 1] : 1,
-                      }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
+                  <div className="relative p-4 rounded-xl bg-white border border-gray-100 shadow-md transition-shadow duration-300 overflow-hidden h-[320px] flex flex-col">
                     
-                    {/* Icon with Advanced Animation */}
-                    <motion.div
-                      className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${service.color} text-white mb-4 relative overflow-hidden self-start`}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <service.icon className="w-5 h-5 relative z-10" />
-                      
-                      {/* Icon Glow Effect */}
-                      <motion.div
-                        className="absolute inset-0 bg-white/20 rounded-lg"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={hoveredService === index ? { scale: 1, opacity: 1 } : {}}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </motion.div>
+                    {/* Simple Icon */}
+                    <div className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${service.color} text-white mb-4 self-start`}>
+                      <service.icon className="w-5 h-5" />
+                    </div>
 
                     {/* Content */}
                     <div className="flex-1 flex flex-col justify-between space-y-2">
                       <div className="flex-1">
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-gray-800 leading-tight">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">
                           {service.title}
                         </h3>
                         <p className="text-gray-600 text-sm leading-relaxed mb-3 line-clamp-3">
@@ -195,18 +217,15 @@ export default function EnhancedServicesSection() {
                         {/* Features */}
                         <div className="grid grid-cols-1 gap-1">
                           {service.features.slice(0, 3).map((feature, featureIndex) => (
-                            <motion.div
+                            <div
                               key={featureIndex}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={isInView ? { opacity: 1, x: 0 } : {}}
-                              transition={{ duration: 0.5, delay: service.delay + featureIndex * 0.1 }}
-                              className="flex items-center text-xs text-gray-600 group-hover:text-gray-700"
+                              className="flex items-center text-xs text-gray-600"
                             >
                               <div
                                 className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color} mr-2 flex-shrink-0`}
                               />
                               <span className="line-clamp-1">{feature}</span>
-                            </motion.div>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -231,17 +250,35 @@ export default function EnhancedServicesSection() {
             </div>
             
             {/* Mobile Scroll Indicator */}
-            <div className="flex justify-center mt-6 px-4">
+            <div className="flex justify-center items-center mt-6 px-4 space-x-4">
               <div className="flex gap-2">
                 {services.map((_, index) => (
                   <div key={index} className="w-2 h-2 rounded-full bg-gray-300"></div>
                 ))}
               </div>
+              <div className="text-xs text-gray-500 flex items-center gap-2">
+                <motion.div
+                  animate={{ 
+                    opacity: isPaused ? 0.8 : [0.5, 1, 0.5],
+                    scale: isPaused ? 1.2 : [1, 1.1, 1],
+                    backgroundColor: isPaused ? "#ef4444" : "#8b5cf6"
+                  }}
+                  transition={{ 
+                    duration: isPaused ? 0.3 : 2,
+                    repeat: isPaused ? 0 : Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="w-2 h-2 rounded-full"
+                />
+                <span className={isPaused ? "font-semibold text-red-600" : "text-gray-500"}>
+                  {isPaused ? 'Paused' : 'Auto-scroll'}
+                </span>
+              </div>
             </div>
           </div>
 
           {/* Desktop Grid */}
-          <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8">
+          <div className="hidden md:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -252,7 +289,7 @@ export default function EnhancedServicesSection() {
                 onHoverEnd={() => setHoveredService(null)}
                 className="group relative"
               >
-                <div className={`relative p-6 md:p-8 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden min-h-[380px] md:h-[420px] flex flex-col ${
+                <div className={`relative p-6 md:p-8 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-auto flex flex-col ${
                   hoveredService === index ? 'scale-102 -translate-y-1' : ''
                 }`}>
                   {/* Animated Background */}
@@ -304,17 +341,17 @@ export default function EnhancedServicesSection() {
                   </motion.div>
 
                   {/* Content */}
-                  <div className="flex-1 flex flex-col justify-between space-y-4">
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-gray-800 leading-tight">
+                  <div className="flex-1 flex flex-col space-y-4">
+                    <div className="flex-1 space-y-4">
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-gray-800 leading-tight">
                         {service.title}
                       </h3>
-                      <p className="text-gray-600 text-base leading-relaxed mb-4 line-clamp-3">
+                      <p className="text-gray-600 text-sm md:text-base leading-relaxed">
                         {service.description}
                       </p>
 
                       {/* Features */}
-                      <div className="grid grid-cols-1 gap-2">
+                      <div className="space-y-2">
                         {service.features.slice(0, 4).map((feature, featureIndex) => (
                           <motion.div
                             key={featureIndex}
@@ -324,9 +361,9 @@ export default function EnhancedServicesSection() {
                             className="flex items-center text-sm text-gray-600 group-hover:text-gray-700"
                           >
                             <div
-                              className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color} mr-2 flex-shrink-0`}
+                              className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color} mr-3 flex-shrink-0`}
                             />
-                            <span className="line-clamp-1">{feature}</span>
+                            <span className="truncate">{feature}</span>
                           </motion.div>
                         ))}
                       </div>

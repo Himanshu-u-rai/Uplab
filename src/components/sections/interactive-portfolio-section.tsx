@@ -225,96 +225,35 @@ export default function InteractivePortfolioSection() {
                   <motion.div
                     key={project.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    onHoverStart={() => setHoveredProject(project.id)}
-                    onHoverEnd={() => setHoveredProject(null)}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
                     className="group cursor-pointer flex-shrink-0 w-[calc(100vw-4rem)] max-w-sm snap-center"
                   >
-                    <div className="relative rounded-2xl overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-500 h-[320px]">
+                    <div className="relative rounded-2xl overflow-hidden bg-white shadow-lg transition-shadow duration-300 h-[320px]">
                       {/* Featured Badge */}
                       {project.featured && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="absolute top-3 left-3 z-20 px-2 py-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold rounded-full"
-                        >
+                        <div className="absolute top-3 left-3 z-20 px-2 py-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold rounded-full">
                           ⭐ Featured
-                        </motion.div>
+                        </div>
                       )}
 
                       {/* Project Image/Preview */}
                       <div className="relative h-40 overflow-hidden">
-                        <motion.div
-                          className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-90`}
-                          animate={{
-                            scale: hoveredProject === project.id ? 1.1 : 1,
-                          }}
-                          transition={{ duration: 0.5 }}
-                        />
-                        
-                        {/* Animated Background Pattern */}
-                        <div className="absolute inset-0 opacity-20">
-                          {[...Array(6)].map((_, i) => (
-                            <motion.div
-                              key={i}
-                              className="absolute w-1.5 h-1.5 bg-white rounded-full"
-                              style={{
-                                left: `${(i % 3) * 30 + 15}%`,
-                                top: `${Math.floor(i / 3) * 40 + 20}%`,
-                              }}
-                              animate={{
-                                y: [-3, -8, -3],
-                                opacity: [0.3, 1, 0.3],
-                              }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                delay: i * 0.2,
-                              }}
-                            />
-                          ))}
-                        </div>
+                        <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-90`} />
 
                         {/* Project Info Overlay */}
                         <div className="absolute inset-0 flex items-center justify-center text-white text-center p-4">
                           <div>
-                            <motion.h3
-                              className="text-lg font-bold mb-1"
-                              animate={{
-                                y: hoveredProject === project.id ? -5 : 0,
-                              }}
-                              transition={{ duration: 0.3 }}
-                            >
+                            <h3 className="text-lg font-bold mb-1">
                               {project.title}
-                            </motion.h3>
-                            <motion.p
-                              className="text-xs opacity-90"
-                              animate={{
-                                y: hoveredProject === project.id ? -5 : 0,
-                              }}
-                              transition={{ duration: 0.3, delay: 0.1 }}
-                            >
+                            </h3>
+                            <p className="text-xs opacity-90">
                               {project.category}
-                            </motion.p>
+                            </p>
                           </div>
                         </div>
-
-                        {/* Hover Overlay */}
-                        <motion.div
-                          className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                          initial={false}
-                        >
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            whileHover={{ scale: 1 }}
-                            className="bg-white/20 backdrop-blur-sm rounded-full p-3"
-                          >
-                            <Eye className="w-5 h-5 text-white" />
-                          </motion.div>
-                        </motion.div>
                       </div>
 
                       {/* Content */}

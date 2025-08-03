@@ -109,7 +109,7 @@ export default function EnhancedTestimonialsSection() {
   }, [autoPlay, currentIndex])
 
   return (
-    <section ref={sectionRef} className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
+    <section ref={sectionRef} className="py-8 sm:py-16 md:py-24 lg:py-32 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
       {/* Animated Background Elements - Mobile Optimized */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-purple-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" />
@@ -146,28 +146,26 @@ export default function EnhancedTestimonialsSection() {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16 md:mb-20"
+          className="text-center mb-6 sm:mb-12 md:mb-16"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-xl border border-purple-500/20 text-purple-300 text-xs sm:text-sm font-semibold mb-4 sm:mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-xl border border-purple-500/20 text-purple-300 text-xs sm:text-sm font-semibold mb-3 sm:mb-4"
           >
-            <Quote className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="hidden xs:inline">Client Stories</span>
-            <span className="xs:hidden">Stories</span>
+            <Quote className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span>Client Stories</span>
           </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 sm:mb-8 leading-tight"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-6 leading-tight"
           >
-            <span className="block">Loved by</span>
-            <span className="block bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-              Businesses Worldwide
+            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
+              Loved by Businesses
             </span>
           </motion.h2>
 
@@ -175,10 +173,9 @@ export default function EnhancedTestimonialsSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2"
+            className="text-sm sm:text-base md:text-lg text-gray-300 max-w-xl sm:max-w-2xl mx-auto leading-relaxed px-2"
           >
-            Don't just take our word for it. Here's what our clients say about 
-            working with Uplab and the results we've achieved together.
+            Here's what our clients say about working with Uplab.
           </motion.p>
         </motion.div>
 
@@ -187,7 +184,7 @@ export default function EnhancedTestimonialsSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 md:mb-20"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-12 md:mb-16"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -195,28 +192,27 @@ export default function EnhancedTestimonialsSection() {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-              className="text-center group"
+              className="text-center group bg-white/5 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/10"
             >
-              <div className="relative mb-3 sm:mb-4">
-                <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <stat.icon className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-white" />
+              <div className="relative mb-2 sm:mb-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                 </div>
-                <div className="absolute inset-0 w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl sm:rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300" />
               </div>
-              <div className="text-xl xs:text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">{stat.number}</div>
-              <div className="text-gray-400 text-xs xs:text-sm">{stat.label}</div>
+              <div className="text-sm sm:text-base md:text-lg font-bold text-white mb-1">{stat.number}</div>
+              <div className="text-gray-400 text-xs sm:text-sm">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Main Testimonial Display - Mobile Optimized */}
+        {/* Main Testimonial Display - Mobile Polished */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mb-12 sm:mb-16 md:mb-20"
+          className="mb-6 sm:mb-12 md:mb-16"
         >
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-3xl mx-auto px-4">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentTestimonial.id}
@@ -224,186 +220,122 @@ export default function EnhancedTestimonialsSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center"
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-5 sm:p-6 border border-white/20 shadow-2xl relative overflow-hidden"
               >
-                {/* Image Section - Mobile Optimized */}
-                <div className="relative">
-                  <motion.div
-                    className={`aspect-square rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden bg-gradient-to-br ${currentTestimonial.gradient} p-1 shadow-2xl max-w-xs sm:max-w-sm mx-auto lg:max-w-none`}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 rounded-xl sm:rounded-2xl lg:rounded-3xl relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
-                      {/* Profile Image */}
-                      <div className={`w-24 h-24 xs:w-28 xs:h-28 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br ${currentTestimonial.gradient} flex items-center justify-center shadow-xl p-1 mb-3 sm:mb-4 lg:mb-6`}>
-                        <Image 
-                          src={currentTestimonial.avatar}
-                          alt={currentTestimonial.name}
-                          width={150}
-                          height={150}
-                          className="w-full h-full rounded-full object-cover"
-                        />
-                      </div>
-                      
-                      {/* Quote Icon */}
-                      <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${currentTestimonial.gradient} flex items-center justify-center mb-4 shadow-lg`}>
-                        <Quote className="w-8 h-8 text-white" />
-                      </div>
-                      
-                      {/* Client Info */}
-                      <div className="text-center space-y-2">
-                        <h3 className="text-2xl font-bold text-gray-900">{currentTestimonial.name}</h3>
-                        <p className="text-lg font-semibold text-gray-700">{currentTestimonial.role}</p>
-                        <p className="text-base text-gray-600 font-medium">{currentTestimonial.company}</p>
-                        
-                        {/* Project Badge */}
-                        <div className="pt-3">
-                          <span className={`inline-block px-4 py-2 rounded-full bg-gradient-to-r ${currentTestimonial.gradient} text-white text-sm font-semibold shadow-md`}>
-                            {currentTestimonial.projectType}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Featured Badge */}
-                  {currentTestimonial.featured && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="absolute -top-3 -right-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg"
-                    >
-                      ⭐ Featured
-                    </motion.div>
-                  )}
-                </div>
-
-                {/* Content Section */}
-                <div className="space-y-8">
-                  {/* Rating Stars */}
-                  <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="flex items-center gap-2"
-                  >
-                    <div className="flex items-center gap-1">
-                      {[...Array(currentTestimonial.rating)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.3, delay: i * 0.1 }}
-                        >
-                          <Star className="w-6 h-6 fill-yellow-400 text-yellow-400" />
-                        </motion.div>
-                      ))}
-                    </div>
-                    <span className="text-yellow-400 font-semibold text-lg ml-2">5.0</span>
-                    <span className="text-gray-400 text-sm">• Excellent Rating</span>
-                  </motion.div>
-
-                  {/* Main Testimonial Text */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="relative"
-                  >
-                    <div className="absolute -left-4 -top-2">
-                      <Quote className="w-8 h-8 text-purple-400/30" />
-                    </div>
-                    <blockquote className="text-xl md:text-2xl text-white leading-relaxed font-medium pl-8">
-                      {currentTestimonial.text}
-                    </blockquote>
-                  </motion.div>
-
-                  {/* Client Information Card */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
-                  >
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${currentTestimonial.gradient} p-0.5`}>
-                        <div className="w-full h-full bg-gray-800 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                          {currentTestimonial.name.split(' ').map(n => n[0]).join('')}
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-bold text-white">{currentTestimonial.name}</h4>
-                        <p className="text-gray-300 font-medium">{currentTestimonial.role}</p>
-                        <p className="text-gray-400 text-sm">{currentTestimonial.company}</p>
-                      </div>
+                {/* Background Gradient Effect */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${currentTestimonial.gradient} opacity-5 rounded-2xl`} />
+                
+                {/* Content */}
+                <div className="relative z-10">
+                {/* Mobile Polished Layout */}
+                <div className="space-y-4">
+                  {/* Header Section with Avatar and Rating */}
+                  <div className="flex items-start gap-4">
+                    {/* Avatar */}
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br ${currentTestimonial.gradient} flex items-center justify-center shadow-lg p-0.5 flex-shrink-0`}>
+                      <Image 
+                        src={currentTestimonial.avatar}
+                        alt={currentTestimonial.name}
+                        width={64}
+                        height={64}
+                        className="w-full h-full rounded-full object-cover"
+                      />
                     </div>
                     
-                    {/* Project Type Tag */}
+                    {/* Client Info and Rating */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-base sm:text-lg font-bold text-white truncate">{currentTestimonial.name}</h3>
+                        {currentTestimonial.featured && (
+                          <span className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-2 py-0.5 rounded-full text-xs font-bold shadow-sm flex-shrink-0">
+                            ⭐
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-300 truncate">{currentTestimonial.role}</p>
+                      <p className="text-xs text-gray-400 truncate mb-2">{currentTestimonial.company}</p>
+                      
+                      {/* Rating */}
+                      <div className="flex items-center gap-1">
+                        {[...Array(currentTestimonial.rating)].map((_, i) => (
+                          <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                        ))}
+                        <span className="text-yellow-400 text-xs font-medium ml-1">5.0</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quote Section */}
+                  <div className="relative">
+                    <div className="absolute -left-1 -top-1 opacity-30">
+                      <Quote className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <blockquote className="text-sm sm:text-base text-white leading-relaxed pl-4 italic">
+                      "{currentTestimonial.text}"
+                    </blockquote>
+                  </div>
+                  
+                  {/* Project Type and Results */}
+                  <div className="space-y-3">
+                    {/* Project Type */}
                     <div className="flex items-center gap-2">
-                      <span className="text-purple-400 text-sm font-medium">Project:</span>
-                      <span className={`px-3 py-1 rounded-full bg-gradient-to-r ${currentTestimonial.gradient} text-white text-sm font-semibold`}>
+                      <span className="text-gray-400 text-xs font-medium">Project:</span>
+                      <span className={`inline-block px-2 py-1 rounded-md bg-gradient-to-r ${currentTestimonial.gradient} text-white text-xs font-semibold`}>
                         {currentTestimonial.projectType}
                       </span>
                     </div>
-                  </motion.div>
-
-                  {/* Results Grid */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    className="space-y-3"
-                  >
-                    <h5 className="text-lg font-semibold text-white mb-4">Key Results:</h5>
-                    <div className="grid grid-cols-1 gap-3">
-                      {currentTestimonial.results.map((result, index) => (
-                        <motion.div 
-                          key={index}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
-                          className="flex items-center gap-3 bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-colors"
-                        >
-                          <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${currentTestimonial.gradient} flex items-center justify-center text-white font-bold text-sm`}>
-                            {index + 1}
+                    
+                    {/* Results Grid - Mobile Optimized */}
+                    <div className="space-y-2">
+                      <span className="text-gray-400 text-xs font-medium">Key Results:</span>
+                      <div className="grid grid-cols-1 gap-2">
+                        {currentTestimonial.results.map((result, index) => (
+                          <div 
+                            key={index}
+                            className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/10"
+                          >
+                            <div className={`w-4 h-4 rounded-sm bg-gradient-to-r ${currentTestimonial.gradient} flex items-center justify-center text-white font-bold text-xs flex-shrink-0`}>
+                              {index + 1}
+                            </div>
+                            <span className="text-white text-xs font-medium">{result}</span>
                           </div>
-                          <span className="text-white font-medium">{result}</span>
-                        </motion.div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </motion.div>
+                  </div>
+                </div>
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
         </motion.div>
 
-        {/* Navigation Controls */}
+        {/* Navigation Controls - Compact Mobile */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
-          className="flex items-center justify-center gap-8 mb-16"
+          className="flex items-center justify-center gap-4 sm:gap-6"
         >
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={prevTestimonial}
-            className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </motion.button>
 
           {/* Pagination Dots */}
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             {testimonials.map((_, index) => (
               <motion.button
                 key={index}
                 whileHover={{ scale: 1.2 }}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex 
-                    ? 'bg-gradient-to-r from-purple-400 to-pink-400 w-8' 
+                    ? 'bg-gradient-to-r from-purple-400 to-pink-400 w-4 sm:w-6' 
                     : 'bg-white/30 hover:bg-white/50'
                 }`}
               />
@@ -414,9 +346,9 @@ export default function EnhancedTestimonialsSection() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={nextTestimonial}
-            className="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </motion.button>
         </motion.div>
       </div>

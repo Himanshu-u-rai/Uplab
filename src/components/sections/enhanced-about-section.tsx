@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Users, Award, Target, Lightbulb, Heart, Code, Palette, Rocket, Calendar, MapPin, Coffee, Github, Linkedin, Twitter } from 'lucide-react'
 
 const teamMembers = [
@@ -116,8 +116,12 @@ const values = [
 export default function EnhancedAboutSection() {
   const [activeTeamMember, setActiveTeamMember] = useState<number | null>(null)
   const [selectedTimelineItem, setSelectedTimelineItem] = useState(0)
+  const [isValuesPaused, setIsValuesPaused] = useState(false)
+  const [isStatsPaused, setIsStatsPaused] = useState(false)
   const sectionRef = useRef(null)
   const timelineRef = useRef(null)
+  const valuesCarouselRef = useRef<HTMLDivElement>(null)
+  const statsCarouselRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 })
   const timelineInView = useInView(timelineRef, { once: true, amount: 0.2 })
 
@@ -127,6 +131,54 @@ export default function EnhancedAboutSection() {
   })
 
   const timelineProgress = useTransform(scrollYProgress, [0, 1], [0, 100])
+
+  // Auto-scrolling effect for Values carousel (mobile only)
+  useEffect(() => {
+    const carousel = valuesCarouselRef.current
+    
+    // Check if we're on mobile (screen width < 640px for sm breakpoint)
+    const isMobile = window.innerWidth < 640
+    
+    if (!carousel || isValuesPaused || !isMobile) return
+
+    const scrollInterval = setInterval(() => {
+      const cardWidth = carousel.children[0]?.clientWidth || 0
+      const gap = 24 // 6 * 4 = 24px gap
+      const scrollAmount = cardWidth + gap
+      
+      if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth) {
+        carousel.scrollTo({ left: 0, behavior: 'smooth' })
+      } else {
+        carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+      }
+    }, 3500) // Slightly slower for values
+
+    return () => clearInterval(scrollInterval)
+  }, [isInView, isValuesPaused])
+
+  // Auto-scrolling effect for Stats carousel (mobile only)
+  useEffect(() => {
+    const carousel = statsCarouselRef.current
+    
+    // Check if we're on mobile (screen width < 768px for md breakpoint)
+    const isMobile = window.innerWidth < 768
+    
+    if (!carousel || isStatsPaused || !isMobile) return
+
+    const scrollInterval = setInterval(() => {
+      const cardWidth = carousel.children[0]?.clientWidth || 0
+      const gap = 24 // 6 * 4 = 24px gap
+      const scrollAmount = cardWidth + gap
+      
+      if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth) {
+        carousel.scrollTo({ left: 0, behavior: 'smooth' })
+      } else {
+        carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+      }
+    }, 4000) // Even slower for stats
+
+    return () => clearInterval(scrollInterval)
+  }, [isInView, isStatsPaused])
 
   return (
     <section ref={sectionRef} className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-white via-gray-50 to-purple-50 relative overflow-hidden">
@@ -188,7 +240,10 @@ export default function EnhancedAboutSection() {
         >
           {/* Mobile Carousel */}
           <div className="block sm:hidden">
-            <div className="flex overflow-x-auto gap-6 pb-6 scrollbar-hide snap-x snap-mandatory px-4">
+            <div 
+              ref={valuesCarouselRef}
+              className="flex overflow-x-auto gap-6 pb-6 scrollbar-hide snap-x snap-mandatory px-4"
+            >
               {values.map((value, index) => (
                 <motion.div
                   key={index}
@@ -196,6 +251,8 @@ export default function EnhancedAboutSection() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
                   className="group flex-shrink-0 w-[calc(100vw-4rem)] max-w-sm snap-center"
+                  onMouseEnter={() => setIsValuesPaused(true)}
+                  onMouseLeave={() => setIsValuesPaused(false)}
                 >
                   <div className="relative p-4 bg-white/80 backdrop-blur-xl rounded-xl border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-56">
                     <div className={`w-12 h-12 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -208,10 +265,30 @@ export default function EnhancedAboutSection() {
               ))}
             </div>
             {/* Mobile Scroll Indicator */}
-            <div className="flex justify-center mt-6 space-x-2 px-4">
-              {values.map((_, index) => (
-                <div key={index} className="w-2 h-2 rounded-full bg-gray-300"></div>
-              ))}
+            <div className="flex justify-center items-center mt-6 space-x-4 px-4">
+              <div className="flex space-x-2">
+                {values.map((_, index) => (
+                  <div key={index} className="w-2 h-2 rounded-full bg-gray-300"></div>
+                ))}
+              </div>
+              <div className="text-xs text-gray-500 flex items-center gap-2">
+                <motion.div
+                  animate={{ 
+                    opacity: isValuesPaused ? 0.8 : [0.5, 1, 0.5],
+                    scale: isValuesPaused ? 1.2 : [1, 1.1, 1],
+                    backgroundColor: isValuesPaused ? "#ef4444" : "#8b5cf6"
+                  }}
+                  transition={{ 
+                    duration: isValuesPaused ? 0.3 : 2,
+                    repeat: isValuesPaused ? 0 : Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="w-2 h-2 rounded-full"
+                />
+                <span className={isValuesPaused ? "font-semibold text-red-600" : "text-gray-500"}>
+                  {isValuesPaused ? 'Paused' : 'Auto-scroll'}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -324,22 +401,37 @@ export default function EnhancedAboutSection() {
             
             {/* Mobile Carousel */}
             <div className="block md:hidden">
-              <div className="flex overflow-x-auto gap-6 pb-6 scrollbar-hide snap-x snap-mandatory px-4">
-                <div className="flex items-center justify-center gap-3 flex-shrink-0 w-[calc(100vw-6rem)] max-w-xs snap-center">
+              <div 
+                ref={statsCarouselRef}
+                className="flex overflow-x-auto gap-6 pb-6 scrollbar-hide snap-x snap-mandatory px-4"
+              >
+                <div 
+                  className="flex items-center justify-center gap-3 flex-shrink-0 w-[calc(100vw-6rem)] max-w-xs snap-center"
+                  onMouseEnter={() => setIsStatsPaused(true)}
+                  onMouseLeave={() => setIsStatsPaused(false)}
+                >
                   <Coffee className="w-8 h-8 flex-shrink-0" />
                   <div>
                     <div className="text-2xl font-bold">10,847</div>
                     <div className="text-sm opacity-90">Cups of Coffee</div>
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-3 flex-shrink-0 w-[calc(100vw-6rem)] max-w-xs snap-center">
+                <div 
+                  className="flex items-center justify-center gap-3 flex-shrink-0 w-[calc(100vw-6rem)] max-w-xs snap-center"
+                  onMouseEnter={() => setIsStatsPaused(true)}
+                  onMouseLeave={() => setIsStatsPaused(false)}
+                >
                   <Code className="w-8 h-8 flex-shrink-0" />
                   <div>
                     <div className="text-2xl font-bold">2.3M+</div>
                     <div className="text-sm opacity-90">Lines of Code</div>
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-3 flex-shrink-0 w-[calc(100vw-6rem)] max-w-xs snap-center">
+                <div 
+                  className="flex items-center justify-center gap-3 flex-shrink-0 w-[calc(100vw-6rem)] max-w-xs snap-center"
+                  onMouseEnter={() => setIsStatsPaused(true)}
+                  onMouseLeave={() => setIsStatsPaused(false)}
+                >
                   <Heart className="w-8 h-8 flex-shrink-0" />
                   <div>
                     <div className="text-2xl font-bold">∞</div>
@@ -348,10 +440,30 @@ export default function EnhancedAboutSection() {
                 </div>
               </div>
               {/* Mobile Scroll Indicator */}
-              <div className="flex justify-center mt-6 space-x-2 px-4">
-                <div className="w-2 h-2 rounded-full bg-white/50"></div>
-                <div className="w-2 h-2 rounded-full bg-white/50"></div>
-                <div className="w-2 h-2 rounded-full bg-white/50"></div>
+              <div className="flex justify-center items-center mt-6 space-x-4 px-4">
+                <div className="flex space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-white/50"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/50"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/50"></div>
+                </div>
+                <div className="text-xs text-white/80 flex items-center gap-2">
+                  <motion.div
+                    animate={{ 
+                      opacity: isStatsPaused ? 0.8 : [0.5, 1, 0.5],
+                      scale: isStatsPaused ? 1.2 : [1, 1.1, 1],
+                      backgroundColor: isStatsPaused ? "#ef4444" : "#ffffff"
+                    }}
+                    transition={{ 
+                      duration: isStatsPaused ? 0.3 : 2,
+                      repeat: isStatsPaused ? 0 : Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="w-2 h-2 rounded-full"
+                  />
+                  <span className={isStatsPaused ? "font-semibold text-red-200" : "text-white/80"}>
+                    {isStatsPaused ? 'Paused' : 'Auto-scroll'}
+                  </span>
+                </div>
               </div>
             </div>
 
