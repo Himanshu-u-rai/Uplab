@@ -12,10 +12,10 @@ const navigation = [
   { name: 'Home', href: '#home' },
   { name: 'Services', href: '#services' },
   { name: 'Portfolio', href: '#portfolio' },
-  { name: 'About', href: '#about' },
   { name: 'Testimonials', href: '#testimonials' },
+  { name: 'Blog', href: '#blog' },
+  { name: 'About', href: '#about' },
   { name: 'FAQ', href: '#faq' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '#contact' },
 ]
 
@@ -34,11 +34,31 @@ export default function Header() {
       setIsScrolled(window.scrollY > 50)
     }
     
+    const handleClickOutside = (event: Event) => {
+      const target = event.target as HTMLElement
+      const mobileMenu = document.querySelector('[data-mobile-menu]')
+      const menuButton = document.querySelector('[data-menu-button]')
+      
+      if (isMenuOpen && mobileMenu && menuButton && 
+          !mobileMenu.contains(target) && !menuButton.contains(target)) {
+        setIsMenuOpen(false)
+      }
+    }
+    
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside)
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [isMenuOpen])
 
   const handleNavigation = (href: string) => {
+    console.log('Navigation clicked:', href, 'Current pathname:', pathname)
+    
     if (href === '/blog') {
       // Direct navigation to blog page
       router.push('/blog')
@@ -47,15 +67,51 @@ export default function Header() {
       if (pathname === '/') {
         // If on homepage, scroll to section
         const element = document.querySelector(href)
-        element?.scrollIntoView({ behavior: 'smooth' })
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+          console.log('Scrolled to element:', href)
+        } else {
+          console.warn('Element not found:', href)
+        }
       } else {
         // If on other pages, navigate to homepage with hash
         router.push(`/${href}`)
+        console.log('Navigating to home with hash:', href)
       }
     } else {
       // Direct page navigation
       router.push(href)
+      console.log('Direct navigation to:', href)
     }
+  }
+
+  const handleMobileNavigation = (href: string) => {
+    console.log('Mobile navigation clicked:', href)
+    
+    // Close menu first
+    setIsMenuOpen(false)
+    
+    // Small delay to allow menu animation to complete
+    setTimeout(() => {
+      if (href.startsWith('#')) {
+        if (pathname === '/') {
+          // If on homepage, scroll to section
+          const element = document.querySelector(href)
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            console.log('Mobile: Scrolled to element:', href)
+          } else {
+            console.warn('Mobile: Element not found:', href)
+          }
+        } else {
+          // If on other pages, navigate to homepage with hash
+          router.push(`/${href}`)
+          console.log('Mobile: Navigating to home with hash:', href)
+        }
+      } else {
+        handleNavigation(href)
+      }
+    }, 150)
   }
 
   return (
@@ -141,6 +197,7 @@ export default function Header() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.8 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            data-menu-button
             className={`lg:hidden p-2 sm:p-2.5 rounded-lg sm:rounded-xl transition-colors duration-300 touch-manipulation ${
               isScrolled || isBlogPage ? 'text-gray-900 hover:bg-gray-100' : 'text-white hover:bg-white/10'
             }`}
@@ -157,12 +214,13 @@ export default function Header() {
           height: isMenuOpen ? 'auto' : 0 
         }}
         transition={{ duration: 0.3 }}
+        data-mobile-menu
         className="lg:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200/20 overflow-hidden"
       >
         <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
           <nav className="space-y-2 sm:space-y-4">
             {navigation.map((item, index) => (
-              <motion.button
+              <motion.div
                 key={item.name}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ 
@@ -170,14 +228,32 @@ export default function Header() {
                   x: isMenuOpen ? 0 : -20 
                 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="block w-full text-left text-gray-700 font-medium py-3 sm:py-2 px-3 sm:px-4 rounded-lg sm:rounded-xl hover:bg-gray-100 transition-colors duration-300 text-base sm:text-sm touch-manipulation"
-                onClick={() => {
-                  setIsMenuOpen(false)
-                  handleNavigation(item.href)
-                }}
               >
-                {item.name}
-              </motion.button>
+                {item.href === '/blog' ? (
+                  <Link
+                    href={item.href}
+                    className="block w-full text-left text-gray-700 font-medium py-3 sm:py-2 px-3 sm:px-4 rounded-lg sm:rounded-xl hover:bg-gray-100 transition-colors duration-300 text-base sm:text-sm touch-manipulation"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : item.href.startsWith('#') ? (
+                  <button
+                    className="block w-full text-left text-gray-700 font-medium py-3 sm:py-2 px-3 sm:px-4 rounded-lg sm:rounded-xl hover:bg-gray-100 transition-colors duration-300 text-base sm:text-sm touch-manipulation"
+                    onClick={() => handleMobileNavigation(item.href)}
+                  >
+                    {item.name}
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="block w-full text-left text-gray-700 font-medium py-3 sm:py-2 px-3 sm:px-4 rounded-lg sm:rounded-xl hover:bg-gray-100 transition-colors duration-300 text-base sm:text-sm touch-manipulation"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </motion.div>
             ))}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
