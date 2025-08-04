@@ -5,6 +5,7 @@ import EnhancedServicesSection from '@/components/sections/enhanced-services-sec
 import InteractivePortfolioSection from '@/components/sections/interactive-portfolio-section'
 import EnhancedAboutSection from '@/components/sections/enhanced-about-section'
 import EnhancedTestimonialsSection from '@/components/sections/enhanced-testimonials-section'
+import FAQSection from '@/components/sections/faq-section'
 import SimpleContactSection from '@/components/sections/simple-contact-section'
 
 export default function Home() {
@@ -30,6 +31,10 @@ export default function Home() {
       
       <section id="testimonials" className="relative">
         <EnhancedTestimonialsSection />
+      </section>
+      
+      <section id="faq" className="relative">
+        <FAQSection />
       </section>
       
       <section id="contact" className="relative">
