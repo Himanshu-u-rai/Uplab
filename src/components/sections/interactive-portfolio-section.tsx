@@ -3,7 +3,7 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { ExternalLink, Github, Eye, Filter, Search, Play, Clock, Star } from 'lucide-react'
+import { ExternalLink, Eye, Filter, Search, Clock, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const projects = [
@@ -394,36 +394,6 @@ export default function InteractivePortfolioSection() {
                         </motion.p>
                       </div>
                     </div>
-                    
-                    {/* Hover Action Buttons */}
-                    <motion.div
-                      className="absolute inset-0 bg-black/50 flex items-center justify-center gap-4"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: hoveredProject === project.id ? 1 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-                      >
-                        <Github className="w-5 h-5" />
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-                      >
-                        <Play className="w-5 h-5" />
-                      </motion.button>
-                    </motion.div>
                   </div>
 
                   {/* Project Details */}
