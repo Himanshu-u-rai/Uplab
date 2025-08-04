@@ -21,6 +21,8 @@ import {
   Smartphone,
   Megaphone
 } from 'lucide-react'
+import SchemaComponent from '@/components/ui/schema-component'
+import { createPortfolioSchema, createBreadcrumbSchema } from '@/lib/schema'
 
 const allProjects = [
   {
@@ -202,6 +204,24 @@ export default function ProjectsPage() {
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
 
+  // Generate schema markup
+  const portfolioSchema = createPortfolioSchema(
+    allProjects.map(project => ({
+      title: project.title,
+      description: project.description,
+      url: project.liveUrl,
+      image: project.image,
+      technologies: project.technologies,
+      datePublished: `${project.year}-01-01`,
+      client: project.client
+    }))
+  )
+
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', url: 'https://uplab.dev' },
+    { name: 'Projects', url: 'https://uplab.dev/projects' }
+  ])
+
   const filteredProjects = allProjects.filter(project => {
     const matchesCategory = activeCategory === 'all' || 
                            project.type === activeCategory || 
@@ -213,7 +233,11 @@ export default function ProjectsPage() {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+    <>
+      {/* Schema Markup */}
+      <SchemaComponent schema={[portfolioSchema, breadcrumbSchema]} id="projects-schema" />
+      
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
       {/* Background Effects - Mobile Optimized */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-purple-500/5 sm:bg-purple-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" />
@@ -475,5 +499,6 @@ export default function ProjectsPage() {
         </motion.div>
       </div>
     </div>
+    </>
   )
 }

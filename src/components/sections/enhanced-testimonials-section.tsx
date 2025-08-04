@@ -5,6 +5,8 @@ import { useRef, useState, useEffect } from 'react'
 import { Star, ChevronLeft, ChevronRight, Quote, MessageSquare, Heart, Award } from 'lucide-react'
 import Image from 'next/image'
 import { getImagePath, createImageProps } from '@/lib/image-utils'
+import SchemaComponent from '@/components/ui/schema-component'
+import { createReviewSchema } from '@/lib/schema'
 
 const testimonials = [
   {
@@ -87,6 +89,16 @@ export default function EnhancedTestimonialsSection() {
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
 
+  // Generate reviews schema
+  const reviewsSchema = createReviewSchema(
+    testimonials.map(testimonial => ({
+      author: testimonial.name,
+      rating: testimonial.rating,
+      reviewBody: testimonial.text,
+      datePublished: '2024-01-01' // You can make this dynamic based on actual dates
+    }))
+  )
+
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
   }
@@ -109,7 +121,11 @@ export default function EnhancedTestimonialsSection() {
   }, [autoPlay, currentIndex])
 
   return (
-    <section ref={sectionRef} className="py-8 sm:py-16 md:py-24 lg:py-32 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
+    <>
+      {/* Schema Markup */}
+      <SchemaComponent schema={reviewsSchema} id="testimonials-schema" />
+      
+      <section ref={sectionRef} className="py-8 sm:py-16 md:py-24 lg:py-32 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
       {/* Animated Background Elements - Mobile Optimized */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-purple-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" />
@@ -353,5 +369,6 @@ export default function EnhancedTestimonialsSection() {
         </motion.div>
       </div>
     </section>
+    </>
   )
 }

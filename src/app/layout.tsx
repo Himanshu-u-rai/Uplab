@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import SchemaComponent from '@/components/ui/schema-component';
+import { organizationSchema, websiteSchema, servicesSchema, localBusinessSchema } from '@/lib/schema';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -60,8 +62,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Combine all schemas for the main site
+  const combinedSchema = [
+    organizationSchema,
+    websiteSchema,
+    localBusinessSchema,
+    ...servicesSchema
+  ];
+
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <SchemaComponent schema={combinedSchema} id="main-schema" />
+      </head>
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
         {children}
       </body>
