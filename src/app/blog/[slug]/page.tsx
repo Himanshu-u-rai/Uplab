@@ -7,6 +7,8 @@ import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/blog'
 import { createArticleSchema } from '@/lib/schema'
 import SchemaComponent from '@/components/ui/schema-component'
 import ShareButton from '@/components/ui/share-button'
+import ViewTracker from '@/components/ui/view-tracker'
+import ViewCounter from '@/components/ui/view-counter'
 import { 
   Calendar, 
   Clock, 
@@ -86,6 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <>
+      <ViewTracker slug={post.slug} />
       <Header />
       <SchemaComponent schema={articleSchema} />
       
@@ -144,6 +147,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <Clock className="w-4 h-4" />
                   <span>{post.readTime}</span>
                 </div>
+                <ViewCounter slug={post.slug} />
               </div>
               
               <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-8">

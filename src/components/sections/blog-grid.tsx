@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { BlogPostMeta } from '@/lib/blog'
+import ViewCounter from '@/components/ui/view-counter'
 import { Calendar, Clock, User, ArrowRight, Search, BookOpen } from 'lucide-react'
 
 interface BlogGridProps {
@@ -140,6 +141,7 @@ export default function BlogGrid({ posts, currentCategory, currentSearch }: Blog
                           <User className="w-3 h-3" />
                           {post.author}
                         </div>
+                        <ViewCounter slug={post.slug} className="hidden sm:flex" />
                       </div>
 
                       {/* Tags */}
