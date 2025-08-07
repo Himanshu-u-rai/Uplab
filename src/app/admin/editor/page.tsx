@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { motion } from 'framer-motion'
@@ -48,6 +48,14 @@ const defaultPost: PostData = {
 }
 
 export default function AdminEditor() {
+  return (
+    <Suspense fallback={<div>Loading editor...</div>}>
+      <AdminEditorContent />
+    </Suspense>
+  )
+}
+
+function AdminEditorContent() {
   const [post, setPost] = useState<PostData>(defaultPost)
   const [isEditing, setIsEditing] = useState(false)
   const [isSaving, setSisSaving] = useState(false)
