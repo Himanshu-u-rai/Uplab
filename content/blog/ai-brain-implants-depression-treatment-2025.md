@@ -1,19 +1,17 @@
 ---
-tiimage: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-imageAlt: "Advanced brain implant technology with AI circuits representing breakthrough depression treatment and neurotechnology"
-readTime: "10 min read"
-featured: true
-schema: "Article"
-lastModified: "2025-08-07"
-relatedArticles: ["biotechnology-gene-therapy-personalized-medicine-2025", "ai-agents-web-integration-revolution-2025"]: "Brain Implants and AI: The Revolutionary Future of Depression Treatment in 2025"
+title: "Brain Implants and AI: The Revolutionary Future of Depression Treatment in 2025"
 date: "2025-08-07"
 category: "Healthcare Technology"
 tags: ["Brain Implants", "AI", "Depression Treatment", "Medical Technology", "Neuroscience", "Mental Health", "Deep Brain Stimulation", "Healthcare Innovation", "Biomedical Engineering", "Personalized Medicine"]
 author: "Uplab Team"
 excerpt: "Explore how AI-powered brain implants are revolutionizing depression treatment, offering new hope for patients with treatment-resistant conditions through personalized, real-time neural therapy."
 image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+imageAlt: "Advanced brain implant technology with AI circuits representing breakthrough depression treatment and neurotechnology"
 readTime: "10 min read"
 featured: true
+schema: "Article"
+lastModified: "2025-08-07"
+relatedArticles: ["biotechnology-gene-therapy-personalized-medicine-2025", "ai-agents-web-integration-revolution-2025"]
 metaTitle: "AI Brain Implants for Depression 2025 | Revolutionary Neural Treatment Technology"
 metaDescription: "Discover how AI-powered brain implants are transforming depression treatment with personalized neural stimulation and real-time feedback systems."
 keywords: ["brain implants depression", "ai neural therapy", "deep brain stimulation", "depression treatment 2025", "neurotechnology", "mental health innovation", "personalized brain therapy"]
