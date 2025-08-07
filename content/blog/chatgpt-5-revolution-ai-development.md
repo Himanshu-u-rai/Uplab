@@ -3,7 +3,7 @@ title: "ChatGPT-5 is Here: The AI Revolution Just Took a Quantum Leap Forward"
 description: "OpenAI's GPT-5 launched today with groundbreaking capabilities that will reshape how we interact with AI. From unified reasoning to personality modes, here's everything you need to know about this game-changing release."
 publishDate: 2025-08-07
 author: "Uplab Development Team"
-image: "/images/blog/chatgpt-5-revolution.svg"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
 category: "Artificial Intelligence"
 tags: ["ChatGPT", "GPT-5", "OpenAI", "AI Technology", "Machine Learning", "Future Tech"]
 featured: true

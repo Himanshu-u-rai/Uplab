@@ -3,7 +3,7 @@ title: "AI's Nuclear Awakening: How Artificial Intelligence is Powering America'
 description: "From small Kentucky towns to tech giants' data centers, AI's insatiable appetite for power is driving an unexpected nuclear energy revival. Here's how artificial intelligence is reshaping America's energy landscape."
 publishDate: 2025-08-07
 author: "Uplab Development Team"
-image: "/images/blog/ai-nuclear-energy-renaissance.svg"
+image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
 category: "Technology Trends"
 tags: ["Artificial Intelligence", "Nuclear Energy", "Data Centers", "Clean Technology", "Energy Infrastructure", "Sustainability"]
 featured: false

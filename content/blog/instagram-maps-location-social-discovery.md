@@ -3,7 +3,7 @@ title: "Instagram's New Maps Feature: Why Location-Based Social Discovery is the
 description: "Instagram's latest Maps feature transforms how we discover places and connect with local communities. Here's why this seemingly simple addition could reshape social media engagement forever."
 publishDate: 2025-08-07
 author: "Uplab Development Team"
-image: "/images/blog/instagram-maps-social-discovery.svg"
+image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
 category: "Social Media"
 tags: ["Instagram", "Social Media", "Location Technology", "User Experience", "Digital Marketing", "Local Discovery"]
 featured: false
