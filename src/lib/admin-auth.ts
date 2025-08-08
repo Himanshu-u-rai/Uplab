@@ -7,13 +7,18 @@ import {
   sanitizeInput,
   validatePassword
 } from './security'
+import {
+  addSession,
+  getSession,
+  removeSession,
+  updateSessionActivity,
+  cleanupExpiredSessions,
+  getSessionsCount
+} from './session-storage'
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123'
 const ADMIN_SESSION_COOKIE = 'admin-session'
 const SESSION_SECRET = process.env.ADMIN_SESSION_SECRET || 'default-secret'
-
-// Store for session tokens (in production, use Redis or database)
-const activeSessions = new Map<string, { created: number; lastActivity: number; ip: string }>()
 
 export async function checkAdminAuth(ip?: string): Promise<boolean> {
   try {
@@ -25,7 +30,7 @@ export async function checkAdminAuth(ip?: string): Promise<boolean> {
     }
     
     // Verify session token exists and is valid
-    const sessionData = activeSessions.get(adminSession.value)
+    const sessionData = await getSession(adminSession.value)
     if (!sessionData) {
       return false
     }
@@ -33,12 +38,12 @@ export async function checkAdminAuth(ip?: string): Promise<boolean> {
     // Check session expiry (24 hours)
     const now = Date.now()
     if (now - sessionData.created > 24 * 60 * 60 * 1000) {
-      activeSessions.delete(adminSession.value)
+      await removeSession(adminSession.value)
       return false
     }
     
     // Update last activity
-    sessionData.lastActivity = now
+    await updateSessionActivity(adminSession.value)
     
     // Log successful auth check
     if (ip) {
@@ -59,7 +64,7 @@ export async function setAdminAuth(ip: string): Promise<{ success: boolean; toke
     const now = Date.now()
     
     // Store session data
-    activeSessions.set(sessionToken, {
+    await addSession(sessionToken, {
       created: now,
       lastActivity: now,
       ip: ip
@@ -89,7 +94,7 @@ export async function clearAdminAuth(ip?: string): Promise<void> {
     const adminSession = cookieStore.get(ADMIN_SESSION_COOKIE)
     
     if (adminSession?.value) {
-      activeSessions.delete(adminSession.value)
+      await removeSession(adminSession.value)
       logSecurityEvent('ADMIN_LOGOUT', { sessionToken: adminSession.value.substring(0, 8) + '...' }, ip)
     }
     
@@ -162,27 +167,19 @@ export function verifyAdminPassword(password: string, ip: string): {
   return { success: true }
 }
 
-// Clean up expired sessions
-setInterval(() => {
-  const now = Date.now()
-  const expiredSessions: string[] = []
-  
-  for (const [token, session] of activeSessions.entries()) {
-    if (now - session.created > 24 * 60 * 60 * 1000) {
-      expiredSessions.push(token)
-    }
+// Clean up expired sessions periodically
+export async function performSessionCleanup(): Promise<void> {
+  try {
+    await cleanupExpiredSessions()
+  } catch (error) {
+    logSecurityEvent('SESSION_CLEANUP_ERROR', { error: error instanceof Error ? error.message : 'Unknown error' })
   }
-  
-  expiredSessions.forEach(token => {
-    activeSessions.delete(token)
-    logSecurityEvent('SESSION_EXPIRED', { token: token.substring(0, 8) + '...' })
-  })
-}, 300000) // Check every 5 minutes
-
-export function getActiveSessionsCount(): number {
-  return activeSessions.size
 }
 
-export function getSessionInfo(token: string): { created: number; lastActivity: number; ip: string } | null {
-  return activeSessions.get(token) || null
+export async function getActiveSessionsCount(): Promise<number> {
+  return await getSessionsCount()
+}
+
+export async function getSessionInfo(token: string): Promise<{ created: number; lastActivity: number; ip: string } | null> {
+  return await getSession(token)
 }
