@@ -2,7 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
-import html from 'remark-html'
+import remarkRehype from 'remark-rehype'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
 
 const postsDirectory = path.join(process.cwd(), 'content/blog')
 
@@ -58,9 +60,11 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
     
-    // Convert markdown to HTML
+    // Convert markdown to sanitized HTML
     const processedContent = await remark()
-      .use(html, { sanitize: false })
+      .use(remarkRehype)
+      .use(rehypeSanitize)
+      .use(rehypeStringify)
       .process(content)
     const htmlContent = processedContent.toString()
     

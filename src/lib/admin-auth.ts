@@ -37,7 +37,7 @@ export async function checkAdminAuth(ip?: string): Promise<boolean> {
       cookieStore.set(ADMIN_SESSION_COOKIE, newToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
+        sameSite: 'strict',
         maxAge: 24 * 60 * 60, // 24 hours
         path: '/'
       })
@@ -64,7 +64,7 @@ export async function setAdminAuth(ip: string): Promise<{ success: boolean; toke
     cookieStore.set(ADMIN_SESSION_COOKIE, sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite: 'strict',
       maxAge: 24 * 60 * 60, // 24 hours
       path: '/'
     })
