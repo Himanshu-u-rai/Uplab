@@ -8,17 +8,13 @@ import {
   validatePassword
 } from './security'
 import {
-  addSession,
-  getSession,
-  removeSession,
-  updateSessionActivity,
-  cleanupExpiredSessions,
-  getSessionsCount
-} from './session-storage'
+  createSession,
+  validateSession,
+  updateSession
+} from './cookie-session'
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123'
 const ADMIN_SESSION_COOKIE = 'admin-session'
-const SESSION_SECRET = process.env.ADMIN_SESSION_SECRET || 'default-secret'
 
 export async function checkAdminAuth(ip?: string): Promise<boolean> {
   try {
@@ -29,25 +25,27 @@ export async function checkAdminAuth(ip?: string): Promise<boolean> {
       return false
     }
     
-    // Verify session token exists and is valid
-    const sessionData = await getSession(adminSession.value)
+    // Validate session token
+    const sessionData = await validateSession(adminSession.value)
     if (!sessionData) {
       return false
     }
     
-    // Check session expiry (24 hours)
-    const now = Date.now()
-    if (now - sessionData.created > 24 * 60 * 60 * 1000) {
-      await removeSession(adminSession.value)
-      return false
+    // Update session activity and get new token
+    const newToken = await updateSession(adminSession.value)
+    if (newToken) {
+      cookieStore.set(ADMIN_SESSION_COOKIE, newToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60, // 24 hours
+        path: '/'
+      })
     }
-    
-    // Update last activity
-    await updateSessionActivity(adminSession.value)
     
     // Log successful auth check
     if (ip) {
-      logSecurityEvent('AUTH_CHECK_SUCCESS', { sessionAge: now - sessionData.created }, ip)
+      logSecurityEvent('AUTH_CHECK_SUCCESS', { sessionAge: Date.now() - sessionData.created }, ip)
     }
     
     return true
@@ -59,16 +57,8 @@ export async function checkAdminAuth(ip?: string): Promise<boolean> {
 
 export async function setAdminAuth(ip: string): Promise<{ success: boolean; token?: string; error?: string }> {
   try {
-    // Generate secure session token
-    const sessionToken = generateSecureToken()
-    const now = Date.now()
-    
-    // Store session data
-    await addSession(sessionToken, {
-      created: now,
-      lastActivity: now,
-      ip: ip
-    })
+    // Create session token with embedded data
+    const sessionToken = await createSession(ip)
     
     const cookieStore = await cookies()
     cookieStore.set(ADMIN_SESSION_COOKIE, sessionToken, {
@@ -94,7 +84,6 @@ export async function clearAdminAuth(ip?: string): Promise<void> {
     const adminSession = cookieStore.get(ADMIN_SESSION_COOKIE)
     
     if (adminSession?.value) {
-      await removeSession(adminSession.value)
       logSecurityEvent('ADMIN_LOGOUT', { sessionToken: adminSession.value.substring(0, 8) + '...' }, ip)
     }
     
@@ -167,19 +156,17 @@ export function verifyAdminPassword(password: string, ip: string): {
   return { success: true }
 }
 
-// Clean up expired sessions periodically
+// Session cleanup is automatic with cookie expiration
 export async function performSessionCleanup(): Promise<void> {
-  try {
-    await cleanupExpiredSessions()
-  } catch (error) {
-    logSecurityEvent('SESSION_CLEANUP_ERROR', { error: error instanceof Error ? error.message : 'Unknown error' })
-  }
+  // No longer needed - cookies expire automatically
+  logSecurityEvent('SESSION_CLEANUP_SKIPPED', { reason: 'Cookie-based sessions expire automatically' })
 }
 
 export async function getActiveSessionsCount(): Promise<number> {
-  return await getSessionsCount()
+  // Cannot count active sessions with cookie-based storage
+  return 0
 }
 
 export async function getSessionInfo(token: string): Promise<{ created: number; lastActivity: number; ip: string } | null> {
-  return await getSession(token)
+  return await validateSession(token)
 }
