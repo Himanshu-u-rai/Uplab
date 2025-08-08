@@ -58,7 +58,7 @@ export async function checkAdminAuth(ip?: string): Promise<boolean> {
 export async function setAdminAuth(ip: string): Promise<{ success: boolean; token?: string; error?: string }> {
   try {
     // Create session token with embedded data
-    const sessionToken = await createSession(ip)
+    const sessionToken = await createSession()
     
     const cookieStore = await cookies()
     cookieStore.set(ADMIN_SESSION_COOKIE, sessionToken, {
@@ -167,6 +167,6 @@ export async function getActiveSessionsCount(): Promise<number> {
   return 0
 }
 
-export async function getSessionInfo(token: string): Promise<{ created: number; lastActivity: number; ip: string } | null> {
+export async function getSessionInfo(token: string): Promise<{ created: number; lastActivity: number; userId: string } | null> {
   return await validateSession(token)
 }
