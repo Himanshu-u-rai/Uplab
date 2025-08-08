@@ -30,14 +30,28 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('/api/admin/check-auth')
+      const response = await fetch('/api/admin/check-auth', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
       if (response.ok) {
-        setIsAuthenticated(true)
+        const data = await response.json()
+        if (data.authenticated) {
+          setIsAuthenticated(true)
+        } else {
+          setIsAuthenticated(false)
+          router.push('/admin')
+        }
       } else {
         setIsAuthenticated(false)
         router.push('/admin')
       }
-    } catch {
+    } catch (error) {
+      console.error('Auth check error:', error)
       setIsAuthenticated(false)
       router.push('/admin')
     }
@@ -45,10 +59,20 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/admin/logout', { method: 'POST' })
+      await fetch('/api/admin/logout', { 
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      setIsAuthenticated(false)
       router.push('/admin')
     } catch (error) {
       console.error('Logout error:', error)
+      // Still redirect even if logout fails
+      setIsAuthenticated(false)
+      router.push('/admin')
     }
   }
 
