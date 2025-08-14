@@ -1,14 +1,11 @@
 import { MetadataRoute } from 'next'
-import { getAllPostSlugs } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://uplab.dev'
   
-  // Get all blog post slugs
-  const blogSlugs = getAllPostSlugs()
   
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
+  // Static pages only, blog removed
+  return [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -20,12 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
     },
     {
       url: `${baseUrl}/privacy`,
@@ -40,14 +31,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ]
-  
-  // Blog posts
-  const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-    url: `${baseUrl}/blog/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }))
-  
-  return [...staticPages, ...blogPages]
 }
