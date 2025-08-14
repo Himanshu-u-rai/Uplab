@@ -37,26 +37,7 @@ const services = [
     bgPattern: 'bg-gradient-to-br from-purple-50 to-pink-50',
     delay: 0.2
   },
-  {
-    icon: Search,
-    title: 'SEO Optimization',
-    description: 'Comprehensive SEO strategies to improve your search rankings and drive organic traffic.',
-    features: ['Keyword Research', 'Technical SEO', 'Content Strategy', 'Performance Analytics'],
-    stats: { projects: 300, satisfaction: 94, delivery: '1-3 months' },
-    color: 'from-green-500 to-emerald-500',
-    bgPattern: 'bg-gradient-to-br from-green-50 to-emerald-50',
-    delay: 0.3
-  },
-  {
-    icon: Megaphone,
-    title: 'Digital Marketing',
-    description: 'Strategic digital marketing campaigns that convert prospects into loyal customers.',
-    features: ['Social Media Ads', 'Google Ads', 'Email Marketing', 'Analytics & ROI'],
-    stats: { projects: 200, satisfaction: 97, delivery: '2-4 weeks' },
-    color: 'from-orange-500 to-red-500',
-    bgPattern: 'bg-gradient-to-br from-orange-50 to-red-50',
-    delay: 0.4
-  }
+
 ]
 
 const achievements = [
@@ -278,7 +259,7 @@ export default function EnhancedServicesSection() {
           </div>
 
           {/* Desktop Grid */}
-          <div className="hidden md:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
+          <div className="hidden md:flex justify-center gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}

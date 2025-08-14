@@ -9,14 +9,9 @@ import { Button } from '@/components/ui/button'
 import ProjectInquiryPopup from '@/components/ui/project-inquiry-popup'
 
 const navigation = [
-  { name: 'Home', href: '#home' },
   { name: 'Services', href: '#services' },
   { name: 'Portfolio', href: '#portfolio' },
   { name: 'Testimonials', href: '#testimonials' },
-  { name: 'Blog', href: '#blog' },
-  { name: 'About', href: '#about' },
-  { name: 'FAQ', href: '#faq' },
-  { name: 'Contact', href: '#contact' },
 ]
 
 export default function Header() {

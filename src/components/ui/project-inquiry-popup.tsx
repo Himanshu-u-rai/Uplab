@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { X, Send, User, Mail, Phone, Briefcase, MessageSquare, Globe, Smartphone, Search, Megaphone } from 'lucide-react'
+import { X, Send, User, Mail, Phone, Briefcase, MessageSquare, Layout, Monitor } from 'lucide-react'
 
 interface ProjectInquiryPopupProps {
   isOpen: boolean
@@ -11,19 +11,8 @@ interface ProjectInquiryPopupProps {
 }
 
 const serviceOptions = [
-  { id: 'web', label: 'Web Development', icon: Globe },
-  { id: 'mobile', label: 'Mobile App Development', icon: Smartphone },
-  { id: 'seo', label: 'SEO Optimization', icon: Search },
-  { id: 'marketing', label: 'Digital Marketing', icon: Megaphone },
-]
-
-const budgetRanges = [
-  'Under $5,000',
-  '$5,000 - $10,000',
-  '$10,000 - $25,000',
-  '$25,000 - $50,000',
-  '$50,000+',
-  'Let\'s discuss'
+  { id: 'web', label: 'Landing Page', icon: Layout },
+  { id: 'mobile', label: 'Website', icon: Monitor },
 ]
 
 export default function ProjectInquiryPopup({ isOpen, onClose }: ProjectInquiryPopupProps) {
@@ -33,7 +22,6 @@ export default function ProjectInquiryPopup({ isOpen, onClose }: ProjectInquiryP
     phone: '',
     company: '',
     services: [] as string[],
-    budget: '',
     timeline: '',
     description: ''
   })
@@ -112,7 +100,6 @@ Contact Information:
 
 Project Details:
 - Services Needed: ${selectedServices}
-- Budget Range: ${formData.budget}
 - Timeline: ${formData.timeline}
 
 Project Description:
@@ -140,7 +127,6 @@ Sent from Uplab Website Contact Form
           phone: '',
           company: '',
           services: [],
-          budget: '',
           timeline: '',
           description: ''
         })
@@ -154,7 +140,7 @@ Sent from Uplab Website Contact Form
     }
   }
 
-  const isFormValid = formData.name && formData.email && formData.services.length > 0 && formData.description
+  const isFormValid = formData.name && formData.email && formData.phone && formData.services.length > 0 && formData.description
 
   // Don't render on server side or if not mounted
   if (!mounted || typeof window === 'undefined') {
@@ -338,12 +324,13 @@ Sent from Uplab Website Contact Form
                           
                           <div className="space-y-1">
                             <label className="block text-sm font-medium text-gray-700">
-                              Phone Number
+                              Phone Number *
                             </label>
                             <div className="relative group">
                               <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-purple-500 transition-colors" />
                               <input
                                 type="tel"
+                                required
                                 value={formData.phone}
                                 onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                                 className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 bg-white text-gray-900"
@@ -374,7 +361,7 @@ Sent from Uplab Website Contact Form
                       <div className="space-y-4">
                         <div className="flex items-center gap-3 mb-4">
                           <div className="w-7 h-7 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
-                            <Globe className="w-4 h-4 text-white" />
+                            <Layout className="w-4 h-4 text-white" />
                           </div>
                           <h3 className="text-lg font-semibold text-gray-900">Services Needed *</h3>
                         </div>
@@ -423,22 +410,6 @@ Sent from Uplab Website Contact Form
                         </div>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-1">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Budget Range
-                            </label>
-                            <select
-                              value={formData.budget}
-                              onChange={(e) => setFormData(prev => ({ ...prev, budget: e.target.value }))}
-                              className="w-full px-3 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 bg-white text-gray-900"
-                            >
-                              <option value="" className="text-gray-500">Select budget range</option>
-                              {budgetRanges.map((range) => (
-                                <option key={range} value={range} className="text-gray-900">{range}</option>
-                              ))}
-                            </select>
-                          </div>
-                          
                           <div className="space-y-1">
                             <label className="block text-sm font-medium text-gray-700">
                               Timeline

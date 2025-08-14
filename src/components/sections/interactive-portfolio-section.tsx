@@ -44,18 +44,6 @@ const projects = [
     featured: false,
   },
   {
-    id: 4,
-    title: 'Digital Marketing Campaign',
-    category: 'Digital Marketing',
-    type: 'marketing',
-    description: 'Multi-platform campaign that achieved 400% ROI with viral social content.',
-    image: '/api/placeholder/600/400',
-    technologies: ['Facebook Ads', 'Google Analytics', 'Creative Suite', 'A/B Testing'],
-    color: 'from-orange-500 to-red-500',
-    stats: { reach: '2M+', engagement: '15%', roi: '400%' },
-    featured: true,
-  },
-  {
     id: 5,
     title: 'Health & Fitness App',
     category: 'Mobile Development',
@@ -85,7 +73,6 @@ const categories = [
   { name: 'All', type: 'all', count: projects.length },
   { name: 'Web Development', type: 'web', count: projects.filter(p => p.type === 'web').length },
   { name: 'Mobile Development', type: 'mobile', count: projects.filter(p => p.type === 'mobile').length },
-  { name: 'Digital Marketing', type: 'marketing', count: projects.filter(p => p.type === 'marketing').length },
   { name: 'Featured', type: 'featured', count: projects.filter(p => p.featured).length },
 ]
 

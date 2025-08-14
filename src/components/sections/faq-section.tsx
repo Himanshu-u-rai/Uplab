@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import ProjectInquiryPopup from '@/components/ui/project-inquiry-popup'
 import { useRef, useState } from 'react'
 import { 
   ChevronDown, 
@@ -83,12 +84,6 @@ const faqs = [
     category: 'services',
     question: 'Can you develop both iOS and Android apps?',
     answer: 'Yes! We develop native iOS and Android apps as well as cross-platform solutions using React Native and Flutter. Our mobile development team ensures your app provides an excellent user experience across all devices and platforms.'
-  },
-  {
-    id: 6,
-    category: 'services',
-    question: 'What does your SEO service include?',
-    answer: 'Our comprehensive SEO service includes keyword research, on-page optimization, technical SEO audits, content strategy, local SEO, link building, and detailed analytics reporting. We focus on sustainable, white-hat techniques that deliver long-term results.'
   },
   {
     id: 7,
@@ -181,6 +176,7 @@ export default function FAQSection() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(1) // Start with first FAQ open
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   const filteredFAQs = faqs.filter(faq => faq.category === activeCategory)
 
@@ -370,23 +366,21 @@ export default function FAQSection() {
                 Can't find the answer you're looking for? Our team is here to help! 
                 Get in touch and we'll respond within 24 hours.
               </p>
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-              >
-                <MessageSquare className="w-5 h-5" />
-                Contact Us
-              </motion.a>
+              <a href="#contact" className="inline-block mt-4">
+                <motion.button
+                  whileHover={{ scale: 1.08, boxShadow: '0 8px 32px rgba(80, 36, 180, 0.18)' }}
+                  whileTap={{ scale: 0.96 }}
+                  className="bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 hover:from-purple-700 hover:via-pink-600 hover:to-blue-700 text-white font-bold py-5 px-16 rounded-2xl shadow-xl transition-all duration-300 text-lg sm:text-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                  onClick={() => setIsPopupOpen(true)}
+                >
+                  Contact Us
+                </motion.button>
+              </a>
             </div>
           </motion.div>
         </div>
       </section>
+      <ProjectInquiryPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </>
   )
 }
