@@ -179,7 +179,7 @@ export const localBusinessSchema: LocalBusiness = {
     "@type": "PostalAddress",
     "streetAddress": "Tech Hub, Digital Valley",
     "addressLocality": "Mumbai",
-    "addressRegion": "Maharashtra", 
+    "addressRegion": "Maharashtra",
     "postalCode": "400001",
     "addressCountry": "IN"
   },
@@ -201,13 +201,13 @@ export const localBusinessSchema: LocalBusiness = {
   "logo": "https://uplab.dev/images/logo/uplab-logo.png",
   "sameAs": [
     "https://twitter.com/uplab_agency",
-    "https://instagram.com/uplab.agency", 
+    "https://instagram.com/uplab.agency",
     "https://linkedin.com/company/uplab-agency"
   ]
 }
 
 // Breadcrumb Schema Generator
-export const createBreadcrumbSchema = (items: Array<{name: string, url: string}>) => {
+export const createBreadcrumbSchema = (items: Array<{ name: string, url: string }>) => {
   return {
     "@type": "BreadcrumbList",
     "itemListElement": items.map((item, index) => ({
@@ -220,7 +220,7 @@ export const createBreadcrumbSchema = (items: Array<{name: string, url: string}>
 }
 
 // FAQ Schema Generator
-export const createFAQSchema = (faqs: Array<{question: string, answer: string}>) => {
+export const createFAQSchema = (faqs: Array<{ question: string, answer: string }>) => {
   return {
     "@type": "FAQPage",
     "mainEntity": faqs.map(faq => ({
@@ -292,36 +292,3 @@ export const createPortfolioSchema = (projects: Array<{
   }
 }
 
-// Article Schema (for blog posts when implemented)
-export const createArticleSchema = (article: {
-  title: string,
-  description: string,
-  content: string,
-  author: string,
-  datePublished: string,
-  dateModified?: string,
-  image?: string,
-  url: string
-}) => {
-  return {
-    "@type": "Article",
-    "headline": article.title,
-    "description": article.description,
-    "articleBody": article.content,
-    "author": {
-      "@type": "Person",
-      "name": article.author
-    },
-    "publisher": {
-      "@id": "https://uplab.dev/#organization"
-    },
-    "datePublished": article.datePublished,
-    "dateModified": article.dateModified || article.datePublished,
-    "image": article.image,
-    "url": article.url,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": article.url
-    }
-  }
-}

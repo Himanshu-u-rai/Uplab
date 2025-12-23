@@ -2,12 +2,12 @@
 
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { 
-  Send, 
-  Mail, 
-  MapPin, 
-  Clock, 
-  CheckCircle, 
+import {
+  Send,
+  Mail,
+  MapPin,
+  Clock,
+  CheckCircle,
   Rocket
 } from 'lucide-react'
 
@@ -105,20 +105,20 @@ Sent from Uplab Contact Form
   }
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="contact" 
-      className="py-16 sm:py-24 md:py-32 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden"
+      id="contact"
+      className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#242423] via-[#3d3d3c] to-[#242423] relative overflow-hidden"
     >
       {/* Enhanced Background Effects - Mobile Optimized */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-purple-500/5 sm:bg-purple-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" />
-        <div className="absolute top-1/2 right-0 w-48 sm:w-96 h-48 sm:h-96 bg-pink-500/5 sm:bg-pink-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute bottom-0 left-1/3 w-48 sm:w-96 h-48 sm:h-96 bg-cyan-500/5 sm:bg-cyan-500/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        
+        <div className="absolute top-0 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-[#f7961f]/5 sm:bg-[#f7961f]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" />
+        <div className="absolute top-1/2 right-0 w-48 sm:w-96 h-48 sm:h-96 bg-[#f7961f]/5 sm:bg-[#f7961f]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute bottom-0 left-1/3 w-48 sm:w-96 h-48 sm:h-96 bg-white/5 sm:bg-white/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-3 sm:opacity-5" />
-        
+
         {/* Floating Particles - Reduced for mobile */}
         {[...Array(15)].map((_, i) => (
           <motion.div
@@ -142,33 +142,32 @@ Sent from Uplab Contact Form
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header - Mobile Optimized */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-6 sm:mb-8 md:mb-12"
+          className="text-center mb-12"
         >
           <motion.div
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-purple-400/30 rounded-full px-3 sm:px-4 md:px-6 py-2 sm:py-3 mb-3 sm:mb-4 md:mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f7961f]/10 text-[#f7961f] text-sm font-semibold mb-4"
           >
-            <Mail className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-purple-400" />
-            <span className="text-purple-300 font-medium text-xs xs:text-sm sm:text-base">Get In Touch</span>
+            <Mail className="w-4 h-4" />
+            <span>Contact Us</span>
           </motion.div>
-          
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight">
-            Let's Build Something
-            <br />
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Let's Build Something{' '}
+            <span className="bg-gradient-to-r from-[#f7961f] to-[#ffb347] bg-clip-text text-transparent">
               Amazing Together
             </span>
           </h2>
-          
-          <p className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2 sm:px-4">
-            Ready to transform your digital presence? Share your project details with us and let's create something extraordinary that drives real results for your business.
+
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
+            Ready to transform your digital presence? Share your project details and let's create something extraordinary.
           </p>
         </motion.div>
 
@@ -192,7 +191,7 @@ Sent from Uplab Contact Form
                       initial={{ scale: 0 }}
                       animate={isInView ? { scale: 1 } : {}}
                       transition={{ duration: 0.6, delay: 0.9 }}
-                      className="w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg xs:rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4"
+                      className="w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 bg-[#f7961f] rounded-lg xs:rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4"
                     >
                       <Mail className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-white" />
                     </motion.div>
@@ -213,7 +212,7 @@ Sent from Uplab Contact Form
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
                           placeholder="Enter your full name"
                           required
                         />
@@ -228,7 +227,7 @@ Sent from Uplab Contact Form
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
                           placeholder="your@email.com"
                           required
                         />
@@ -243,7 +242,7 @@ Sent from Uplab Contact Form
                           name="company"
                           value={formData.company}
                           onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
                           placeholder="Your company name"
                         />
                       </div>
@@ -257,7 +256,7 @@ Sent from Uplab Contact Form
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
                           placeholder="+91 98765 43210"
                         />
                       </div>
@@ -270,7 +269,7 @@ Sent from Uplab Contact Form
                           name="projectType"
                           value={formData.projectType}
                           onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
                           required
                         >
                           <option value="" className="bg-gray-800">Select a service</option>
@@ -290,7 +289,7 @@ Sent from Uplab Contact Form
                           name="budget"
                           value={formData.budget}
                           onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
                         >
                           <option value="" className="bg-gray-800">Select budget range</option>
                           {budgetRanges.map((range) => (
@@ -311,7 +310,7 @@ Sent from Uplab Contact Form
                         value={formData.message}
                         onChange={handleInputChange}
                         rows={5}
-                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all resize-none text-sm sm:text-base"
+                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all resize-none text-sm sm:text-base"
                         placeholder="Tell us about your project, goals, and any specific requirements..."
                         required
                       />
@@ -322,9 +321,8 @@ Sent from Uplab Contact Form
                       disabled={isSubmitting}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`w-full py-3 sm:py-4 px-6 sm:px-8 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg sm:rounded-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 ${
-                        isSubmitting ? 'opacity-80 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-purple-500/25'
-                      } text-sm sm:text-base`}
+                      className={`w-full py-3 sm:py-4 px-6 sm:px-8 bg-[#f7961f] hover:bg-[#e07a00] text-white font-semibold rounded-lg sm:rounded-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 ${isSubmitting ? 'opacity-80 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-[#f7961f]/25'
+                        } text-sm sm:text-base`}
                     >
                       {isSubmitting ? (
                         <>
@@ -365,7 +363,7 @@ Sent from Uplab Contact Form
                   >
                     <CheckCircle className="w-8 h-8 sm:w-10 h-10 text-white" />
                   </motion.div>
-                  
+
                   <motion.h3
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -374,7 +372,7 @@ Sent from Uplab Contact Form
                   >
                     Message Sent Successfully!
                   </motion.h3>
-                  
+
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -383,12 +381,12 @@ Sent from Uplab Contact Form
                   >
                     Thank you for reaching out! We'll get back to you within 24 hours.
                   </motion.p>
-                  
+
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
-                    className="flex items-center justify-center gap-2 text-purple-400 text-sm sm:text-base"
+                    className="flex items-center justify-center gap-2 text-[#f7961f] text-sm sm:text-base"
                   >
                     <Rocket className="w-4 h-4 sm:w-5 h-5" />
                     <span>We're excited to work with you!</span>
@@ -402,3 +400,4 @@ Sent from Uplab Contact Form
     </section>
   )
 }
+

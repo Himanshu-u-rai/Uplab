@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Twitter, Instagram, Linkedin, Github, ArrowUp } from 'lucide-react'
 
 const socialLinks = [
@@ -17,22 +18,23 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-gray-900 text-white relative overflow-hidden">
+    <footer className="bg-[#242423] text-white relative overflow-hidden">
       {/* Subtle background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900/10 to-gray-900" />
-      <div className="absolute top-10 left-0 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-10 right-0 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#242423] via-[#3d3d3c]/30 to-[#242423]" />
+      <div className="absolute top-10 left-0 w-48 h-48 bg-[#f7961f]/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-10 right-0 w-40 h-40 bg-[#f7961f]/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Top section */}
         <div className="py-8 border-b border-gray-800 flex flex-col lg:flex-row items-center justify-between gap-6">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center font-bold">
-              U
-            </div>
-            <span className="text-2xl font-bold">Uplab</span>
-          </div>
+          <Image
+            src="/images/logo-white.png"
+            alt="Uplab"
+            width={180}
+            height={50}
+            className="h-24 w-auto"
+          />
 
           {/* Social icons */}
           <div className="flex gap-3">
@@ -42,7 +44,7 @@ export default function Footer() {
                 href={social.href}
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition"
+                className="w-9 h-9 bg-[#3d3d3c] rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#f7961f] transition"
               >
                 <social.icon className="w-4 h-4" />
               </motion.a>
@@ -67,7 +69,7 @@ export default function Footer() {
         transition={{ duration: 0.6, delay: 0.3 }}
         viewport={{ once: true }}
         onClick={scrollToTop}
-        className="fixed bottom-4 right-4 p-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 group"
+        className="fixed bottom-4 right-4 p-3 bg-[#f7961f] hover:bg-[#e07a00] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 group"
         aria-label="Scroll to top"
       >
         <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />

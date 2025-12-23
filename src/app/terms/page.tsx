@@ -6,11 +6,11 @@ import { ArrowLeft, FileText, Scale, AlertTriangle, CheckCircle } from 'lucide-r
 
 export default function TermsOfService() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-[#242423] to-gray-900">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#f7961f]/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#e07a00]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
       </div>
 
@@ -24,7 +24,7 @@ export default function TermsOfService() {
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-[#f7961f] hover:text-[#ffb347] transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
@@ -35,7 +35,7 @@ export default function TermsOfService() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6"
+              className="w-16 h-16 bg-gradient-to-r from-[#f7961f] to-[#e07a00] rounded-2xl flex items-center justify-center mx-auto mb-6"
             >
               <Scale className="w-8 h-8 text-white" />
             </motion.div>
@@ -60,7 +60,7 @@ export default function TermsOfService() {
               {/* Introduction */}
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <FileText className="w-6 h-6 text-purple-400" />
+                  <FileText className="w-6 h-6 text-[#f7961f]" />
                   <h2 className="text-2xl font-bold text-white m-0">Agreement to Terms</h2>
                 </div>
                 <p className="text-gray-300 leading-relaxed">
@@ -73,7 +73,7 @@ export default function TermsOfService() {
               {/* Services Description */}
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <CheckCircle className="w-6 h-6 text-purple-400" />
+                  <CheckCircle className="w-6 h-6 text-[#f7961f]" />
                   <h2 className="text-2xl font-bold text-white m-0">Our Services</h2>
                 </div>
                 <div className="space-y-4 text-gray-300">
@@ -219,3 +219,4 @@ export default function TermsOfService() {
     </div>
   )
 }
+

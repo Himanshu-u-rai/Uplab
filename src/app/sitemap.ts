@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://uplab.dev'
-  
-  
-  // Static pages only, blog removed
+
+
+  // Static pages
   return [
     {
       url: baseUrl,

@@ -22,7 +22,6 @@ export const ImageCategories = {
   TEAM: 'team',
   TESTIMONIALS: 'testimonials',
   SERVICES: 'services',
-  BLOG: 'blog',
 } as const
 
 /**
@@ -32,25 +31,21 @@ export const ImageSizes = {
   // Hero section
   HERO_BACKGROUND: { width: 1920, height: 1080 },
   HERO_GRAPHIC: { width: 800, height: 600 },
-  
+
   // Portfolio
   PROJECT_THUMBNAIL: { width: 600, height: 400 },
   PROJECT_DETAIL: { width: 1200, height: 800 },
-  
+
   // Team
   TEAM_MEMBER: { width: 400, height: 400 },
-  
+
   // Testimonials
   CLIENT_PHOTO: { width: 200, height: 200 },
   COMPANY_LOGO: { width: 150, height: 50 },
-  
+
   // Services
   SERVICE_ICON: { width: 64, height: 64 },
   SERVICE_ILLUSTRATION: { width: 400, height: 300 },
-  
-  // Blog
-  BLOG_FEATURED: { width: 800, height: 450 },
-  BLOG_CONTENT: { width: 600, height: 400 },
 } as const
 
 /**
@@ -69,7 +64,7 @@ export function createImageProps(
 ) {
   const categoryPath = ImageCategories[category]
   const dimensions = ImageSizes[size]
-  
+
   return {
     src: getImagePath(categoryPath, filename),
     alt,
@@ -86,8 +81,8 @@ export function createImageProps(
  * @returns Placeholder image URL
  */
 export function getPlaceholderImage(
-  width: number, 
-  height: number, 
+  width: number,
+  height: number,
   text?: string
 ): string {
   const displayText = text ? encodeURIComponent(text) : `${width}x${height}`
@@ -117,22 +112,22 @@ export const ImageConfigs = {
     className: "absolute inset-0 w-full h-full object-cover",
     priority: true,
   }),
-  
+
   portfolioThumbnail: (filename: string, alt: string) => ({
     ...createImageProps('PORTFOLIO', filename, alt, 'PROJECT_THUMBNAIL'),
     className: "w-full h-64 object-cover rounded-lg",
   }),
-  
+
   teamMember: (filename: string, alt: string) => ({
     ...createImageProps('TEAM', filename, alt, 'TEAM_MEMBER'),
     className: "w-full h-full object-cover rounded-full",
   }),
-  
+
   clientPhoto: (filename: string, alt: string) => ({
     ...createImageProps('TESTIMONIALS', filename, alt, 'CLIENT_PHOTO'),
     className: "w-16 h-16 rounded-full object-cover",
   }),
-  
+
   serviceIcon: (filename: string, alt: string) => ({
     ...createImageProps('SERVICES', filename, alt, 'SERVICE_ICON'),
     className: "w-16 h-16",

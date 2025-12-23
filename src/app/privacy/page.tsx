@@ -6,11 +6,11 @@ import { ArrowLeft, Shield, Eye, Lock, UserCheck } from 'lucide-react'
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-[#242423] to-gray-900">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#f7961f]/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#e07a00]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
       </div>
 
@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-[#f7961f] hover:text-[#ffb347] transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
@@ -35,7 +35,7 @@ export default function PrivacyPolicy() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6"
+              className="w-16 h-16 bg-gradient-to-r from-[#f7961f] to-[#e07a00] rounded-2xl flex items-center justify-center mx-auto mb-6"
             >
               <Shield className="w-8 h-8 text-white" />
             </motion.div>
@@ -60,7 +60,7 @@ export default function PrivacyPolicy() {
               {/* Introduction */}
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <Eye className="w-6 h-6 text-purple-400" />
+                  <Eye className="w-6 h-6 text-[#f7961f]" />
                   <h2 className="text-2xl font-bold text-white m-0">Introduction</h2>
                 </div>
                 <p className="text-gray-300 leading-relaxed">
@@ -73,7 +73,7 @@ export default function PrivacyPolicy() {
               {/* Information We Collect */}
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <UserCheck className="w-6 h-6 text-purple-400" />
+                  <UserCheck className="w-6 h-6 text-[#f7961f]" />
                   <h2 className="text-2xl font-bold text-white m-0">Information We Collect</h2>
                 </div>
                 <div className="space-y-4 text-gray-300">
@@ -103,7 +103,7 @@ export default function PrivacyPolicy() {
               {/* How We Use Information */}
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <Lock className="w-6 h-6 text-purple-400" />
+                  <Lock className="w-6 h-6 text-[#f7961f]" />
                   <h2 className="text-2xl font-bold text-white m-0">How We Use Your Information</h2>
                 </div>
                 <div className="text-gray-300 space-y-3">
@@ -177,7 +177,7 @@ export default function PrivacyPolicy() {
               </div>
 
               {/* Updates */}
-              <div className="bg-purple-500/10 border border-purple-400/20 rounded-xl p-6">
+              <div className="bg-[#f7961f]/10 border border-[#f7961f]/20 rounded-xl p-6">
                 <h2 className="text-2xl font-bold text-white mb-4">Policy Updates</h2>
                 <p className="text-gray-300 leading-relaxed m-0">
                   We may update this Privacy Policy from time to time to reflect changes in our practices or 
@@ -192,3 +192,4 @@ export default function PrivacyPolicy() {
     </div>
   )
 }
+

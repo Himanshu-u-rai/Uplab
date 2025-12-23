@@ -3,10 +3,10 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import ProjectInquiryPopup from '@/components/ui/project-inquiry-popup'
 import { useRef, useState } from 'react'
-import { 
-  ChevronDown, 
-  ChevronUp, 
-  HelpCircle, 
+import {
+  ChevronDown,
+  ChevronUp,
+  HelpCircle,
   MessageSquare,
   Clock,
   DollarSign,
@@ -23,31 +23,31 @@ const faqCategories = [
     id: 'general',
     name: 'General',
     icon: HelpCircle,
-    color: 'from-blue-500 to-cyan-500'
+    color: 'from-[#f7961f] to-[#e07a00]'
   },
   {
     id: 'services',
     name: 'Services',
     icon: Zap,
-    color: 'from-purple-500 to-pink-500'
+    color: 'from-[#e07a00] to-[#f7961f]'
   },
   {
     id: 'pricing',
     name: 'Pricing',
     icon: DollarSign,
-    color: 'from-green-500 to-emerald-500'
+    color: 'from-[#f7961f] to-[#ffb347]'
   },
   {
     id: 'process',
     name: 'Process',
     icon: Rocket,
-    color: 'from-orange-500 to-red-500'
+    color: 'from-[#242423] to-[#3d3d3c]'
   },
   {
     id: 'support',
     name: 'Support',
     icon: Shield,
-    color: 'from-teal-500 to-cyan-500'
+    color: 'from-[#f7961f] to-[#e07a00]'
   }
 ]
 
@@ -196,13 +196,13 @@ export default function FAQSection() {
     <>
       {/* Schema Markup */}
       <SchemaComponent schema={faqSchema} id="faq-schema" />
-      
-      <section ref={sectionRef} className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+
+      <section ref={sectionRef} className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-blue-500/5 rounded-full blur-2xl sm:blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-purple-500/5 rounded-full blur-2xl sm:blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] bg-gradient-radial from-cyan-100/20 to-transparent rounded-full" />
+          <div className="absolute top-0 right-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-[#f7961f]/5 rounded-full blur-2xl sm:blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-[#242423]/5 rounded-full blur-2xl sm:blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] bg-gradient-radial from-orange-100/20 to-transparent rounded-full" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -211,27 +211,27 @@ export default function FAQSection() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12 sm:mb-16 md:mb-20"
+            className="text-center mb-12"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 text-xs sm:text-sm font-semibold mb-4 sm:mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f7961f]/10 text-[#e07a00] text-sm font-semibold mb-4"
             >
-              <HelpCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span>Frequently Asked Questions</span>
+              <HelpCircle className="w-4 h-4" />
+              FAQ
             </motion.div>
 
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 sm:mb-8 leading-tight"
+              className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
             >
-              <span className="block">Got Questions?</span>
-              <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
-                We've Got Answers
+              Frequently Asked{' '}
+              <span className="bg-gradient-to-r from-[#f7961f] to-[#e07a00] bg-clip-text text-transparent">
+                Questions
               </span>
             </motion.h2>
 
@@ -239,10 +239,9 @@ export default function FAQSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-2 sm:px-4"
+              className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto"
             >
-              Find answers to the most common questions about our services, 
-              process, and pricing. Can't find what you're looking for? Contact us directly!
+              Find answers to common questions about our services and process.
             </motion.p>
           </motion.div>
 
@@ -262,17 +261,16 @@ export default function FAQSection() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
                   onClick={() => setActiveCategory(category.id)}
-                  className={`group relative px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 text-sm sm:text-base ${
-                    activeCategory === category.id
-                      ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
-                      : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-gray-300 hover:shadow-md'
-                  }`}
+                  className={`group relative px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 text-sm sm:text-base ${activeCategory === category.id
+                    ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
+                    : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-gray-300 hover:shadow-md'
+                    }`}
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <Icon className="w-4 h-4 sm:w-5 h-5" />
                     <span className="hidden xs:inline">{category.name}</span>
                   </span>
-                  
+
                   {activeCategory === category.id && (
                     <motion.div
                       layoutId="activeCategory"
@@ -325,7 +323,7 @@ export default function FAQSection() {
                         <ChevronDown className="w-5 h-5 sm:w-6 h-6 text-gray-500" />
                       </motion.div>
                     </button>
-                    
+
                     <AnimatePresence>
                       {openFAQ === faq.id && (
                         <motion.div
@@ -348,35 +346,6 @@ export default function FAQSection() {
                 ))}
               </motion.div>
             </AnimatePresence>
-          </motion.div>
-
-          {/* Contact CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="text-center mt-16 sm:mt-20"
-          >
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-blue-100">
-              <MessageSquare className="w-12 h-12 sm:w-16 h-16 mx-auto mb-6 text-blue-600" />
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                Still Have Questions?
-              </h3>
-              <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                Can't find the answer you're looking for? Our team is here to help! 
-                Get in touch and we'll respond within 24 hours.
-              </p>
-              <a href="#contact" className="inline-block mt-4">
-                <motion.button
-                  whileHover={{ scale: 1.08, boxShadow: '0 8px 32px rgba(80, 36, 180, 0.18)' }}
-                  whileTap={{ scale: 0.96 }}
-                  className="bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 hover:from-purple-700 hover:via-pink-600 hover:to-blue-700 text-white font-bold py-5 px-16 rounded-2xl shadow-xl transition-all duration-300 text-lg sm:text-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                  onClick={() => setIsPopupOpen(true)}
-                >
-                  Contact Us
-                </motion.button>
-              </a>
-            </div>
           </motion.div>
         </div>
       </section>
