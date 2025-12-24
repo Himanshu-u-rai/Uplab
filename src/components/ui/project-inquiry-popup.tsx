@@ -3,16 +3,32 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { X, Send, User, Mail, Phone, Briefcase, MessageSquare, Layout, Monitor } from 'lucide-react'
+import {
+  X,
+  Send,
+  Terminal,
+  Cpu,
+  ShieldCheck,
+  Zap,
+  Activity,
+  ChevronRight,
+  Monitor,
+  Smartphone,
+  Database,
+  Code2
+} from 'lucide-react'
+import Image from 'next/image'
 
 interface ProjectInquiryPopupProps {
   isOpen: boolean
   onClose: () => void
 }
 
-const serviceOptions = [
-  { id: 'web', label: 'Landing Page', icon: Layout },
-  { id: 'mobile', label: 'Website', icon: Monitor },
+const protocolOptions = [
+  { id: 'web', label: 'Web ecosystem', icon: Monitor, tag: 'PRTCOL_01' },
+  { id: 'mobile', label: 'Mobile interface', icon: Smartphone, tag: 'PRTCOL_02' },
+  { id: 'infra', label: 'Backend/Infra', icon: Database, tag: 'PRTCOL_03' },
+  { id: 'ai', label: 'AI Integration', icon: Code2, tag: 'PRTCOL_04' },
 ]
 
 export default function ProjectInquiryPopup({ isOpen, onClose }: ProjectInquiryPopupProps) {
@@ -21,468 +37,279 @@ export default function ProjectInquiryPopup({ isOpen, onClose }: ProjectInquiryP
     email: '',
     phone: '',
     company: '',
-    services: [] as string[],
-    timeline: '',
+    protocol: '',
     description: ''
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [sessionId, setSessionId] = useState('')
 
-  // Ensure we're on the client side before rendering portal
   useEffect(() => {
     setMounted(true)
+    setSessionId(`UID_${Math.floor(Math.random() * 900000 + 100000)}`)
   }, [])
 
-  // Prevent background scrolling when popup is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
-      document.body.style.paddingRight = '0px' // Prevent layout shift from scrollbar
-
-      // Create a style element to ensure our popup is always on top
-      const style = document.createElement('style')
-      style.innerHTML = `
-        .popup-overlay {
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          bottom: 0 !important;
-          z-index: 999999 !important;
-        }
-      `
-      document.head.appendChild(style)
-
-      return () => {
-        document.head.removeChild(style)
-      }
     } else {
       document.body.style.overflow = 'unset'
-      document.body.style.paddingRight = '0px'
-    }
-
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = 'unset'
-      document.body.style.paddingRight = '0px'
     }
   }, [isOpen])
-
-  const handleServiceToggle = (serviceId: string) => {
-    setFormData(prev => ({
-      ...prev,
-      services: prev.services.includes(serviceId)
-        ? prev.services.filter(id => id !== serviceId)
-        : [...prev.services, serviceId]
-    }))
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    try {
-      // Create email body
-      const selectedServices = formData.services.map(id =>
-        serviceOptions.find(service => service.id === id)?.label
-      ).join(', ')
+    // Simulate system sync
+    await new Promise(resolve => setTimeout(resolve, 2000))
 
-      const emailBody = `
-New Project Inquiry from ${formData.name}
+    const emailBody = `
+SYSTEM_SYNC_DATA:
+- SESSION: ${sessionId}
+- USR_NAME: ${formData.name}
+- USR_EMAIL: ${formData.email}
+- CORP_ID: ${formData.company}
+- PRTCOL: ${formData.protocol}
 
-Contact Information:
-- Name: ${formData.name}
-- Email: ${formData.email}
-- Phone: ${formData.phone}
-- Company: ${formData.company}
-
-Project Details:
-- Services Needed: ${selectedServices}
-- Timeline: ${formData.timeline}
-
-Project Description:
+ARCH_DOCS:
 ${formData.description}
+    `.trim()
 
----
-Sent from Uplab Website Contact Form
-      `.trim()
+    const mailtoLink = `mailto:Himanshurai114@gmail.com?subject=[${sessionId}] Initialization Request from ${formData.name}&body=${encodeURIComponent(emailBody)}`
+    window.location.href = mailtoLink
 
-      // Send email using EmailJS or a similar service
-      // For now, we'll use mailto as a fallback
-      const mailtoLink = `mailto:Himanshurai114@gmail.com?subject=New Project Inquiry from ${formData.name}&body=${encodeURIComponent(emailBody)}`
-
-      // Open default email client
-      window.location.href = mailtoLink
-
-      setIsSubmitted(true)
-
-      // Reset form after 2 seconds
-      setTimeout(() => {
-        setIsSubmitted(false)
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-          services: [],
-          timeline: '',
-          description: ''
-        })
-        onClose()
-      }, 2000)
-
-    } catch (error) {
-      console.error('Error sending inquiry:', error)
-    } finally {
-      setIsSubmitting(false)
-    }
+    setIsSubmitted(true)
+    setTimeout(() => {
+      setIsSubmitted(false)
+      onClose()
+    }, 3000)
+    setIsSubmitting(false)
   }
 
-  const isFormValid = formData.name && formData.email && formData.phone && formData.services.length > 0 && formData.description
-
-  // Don't render on server side or if not mounted
-  if (!mounted || typeof window === 'undefined') {
-    return null
-  }
+  if (!mounted) return null
 
   const popupContent = (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {isOpen && (
-        <div
-          className="popup-overlay"
-          onClick={onClose}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 2147483647, // Maximum possible z-index
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '16px',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(8px)',
-            overflow: 'hidden'
-          }}
-        >
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 md:p-8">
+          {/* Backdrop */}
           <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/90 backdrop-blur-2xl"
+          />
+
+          {/* Main Console */}
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0, y: 30 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              position: 'relative',
-              zIndex: 2147483647,
-              width: '100%',
-              maxWidth: '1024px',
-              maxHeight: '90vh',
-              overflow: 'hidden',
-              backgroundColor: 'white',
-              borderRadius: '16px',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-              border: '1px solid rgb(229, 231, 235)'
-            }}
+            exit={{ scale: 0.95, opacity: 0, y: 30 }}
+            className="relative w-full max-w-4xl bg-[#0f0f0f] border border-white/10 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_0_100px_rgba(247,150,31,0.1)] flex flex-col md:flex-row max-h-[90vh] md:max-h-none"
           >
-            {/* Enhanced Header with Gradient */}
-            <div className="sticky top-0 bg-gradient-to-r from-[#242423] via-[#3d3d3c] to-[#242423] px-8 py-6 rounded-t-2xl relative overflow-hidden">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 opacity-10">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="dots-pattern" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <circle cx="10" cy="10" r="1" fill="currentColor" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#dots-pattern)" />
-                </svg>
+            {/* Sidebar: System Specs */}
+            <div className="md:w-72 bg-white/[0.02] border-r border-white/5 p-6 md:p-8 flex flex-col shrink-0">
+              <div className="flex flex-col items-center mb-8 md:mb-12">
+                <Image src="/images/logo-white.png" alt="Uplab" width={220} height={60} className="h-8 md:h-10 w-auto mb-2" />
+                <span className="text-[10px] font-mono text-[#f7961f]/40 uppercase tracking-widest font-black">Architecture Lab</span>
               </div>
 
-              {/* Close Button */}
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  onClose();
-                }}
-                style={{
-                  position: 'absolute',
-                  top: '16px',
-                  right: '16px',
-                  zIndex: 2147483647,
-                  padding: '8px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  backdropFilter: 'blur(4px)',
-                  borderRadius: '9999px',
-                  border: 'none',
-                  color: 'white',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.3)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)'
-                }}
-              >
-                <X style={{ width: '20px', height: '20px' }} />
-              </button>
+              <div className="space-y-6 md:space-y-8 flex-1 flex md:flex-col overflow-x-auto md:overflow-visible pb-4 md:pb-0 gap-4 md:gap-0">
+                <div>
+                  <span className="block text-[9px] font-mono text-white/20 uppercase tracking-widest mb-3">Sync Status</span>
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-green-500/5 border border-green-500/10">
+                    <Activity className="w-3 h-3 text-green-500" />
+                    <span className="text-[11px] font-mono text-green-500 font-bold">READY_TO_SYNC</span>
+                  </div>
+                </div>
 
-              <div className="relative z-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <h2 className="text-3xl font-bold text-white mb-2">Let's Start Your Project</h2>
-                  <p className="text-white/90 text-base leading-relaxed">
-                    Tell us about your vision and we'll turn it into reality.
-                  </p>
-                </motion.div>
+                <div>
+                  <span className="block text-[9px] font-mono text-white/20 uppercase tracking-widest mb-3">System Identity</span>
+                  <div className="px-3 py-2 rounded-xl bg-white/5 border border-white/5 font-mono text-[11px] text-white/60">
+                    {sessionId}
+                  </div>
+                </div>
+
+                <div>
+                  <span className="block text-[9px] font-mono text-white/20 uppercase tracking-widest mb-3">Security Protocol</span>
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/5">
+                    <ShieldCheck className="w-3 h-3 text-[#f7961f]" />
+                    <span className="text-[11px] font-mono text-white/60">AES_256_ACTIVE</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 md:pt-8 border-t border-white/5 hidden md:block">
+                <span className="block text-[9px] font-mono text-white/10 uppercase tracking-widest leading-relaxed">
+                  By initializing, you agree to established data protocols.
+                </span>
               </div>
             </div>
 
-            {/* Enhanced Form Content */}
-            <div className="overflow-y-auto max-h-[calc(90vh-140px)] bg-white">
-              {isSubmitted ? (
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="text-center py-12 px-6"
+            {/* Main Content Area */}
+            <div className="flex-1 flex flex-col h-[80vh] md:h-[auto] max-h-[90vh]">
+              {/* Header */}
+              <div className="px-8 py-6 bg-white/[0.03] border-b border-white/5 flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-black text-white uppercase tracking-tight">Project_Initialization</h2>
+                  <p className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] mt-1">Terminal_v4.5-stable</p>
+                </div>
+                <button
+                  onClick={onClose}
+                  className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-white/40 hover:text-white transition-colors"
                 >
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    className="w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
-                  >
-                    <Send className="w-8 h-8 text-white" />
-                  </motion.div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">Message Sent Successfully!</h3>
-                  <p className="text-gray-600 text-base mb-4">
-                    Thank you for reaching out. We'll review your requirements and get back to you within 24 hours.
-                  </p>
-                  <div className="flex items-center justify-center gap-2 text-[#f7961f] font-medium">
-                    <div className="w-2 h-2 bg-[#f7961f] rounded-full animate-pulse" />
-                    <span>Closing automatically...</span>
-                  </div>
-                </motion.div>
-              ) : (
-                <div className="p-6">
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Contact Information Section */}
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="w-7 h-7 bg-gradient-to-r from-[#f7961f] to-[#e07a00] rounded-lg flex items-center justify-center">
-                          <User className="w-4 h-4 text-white" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-gray-900">Contact Information</h3>
-                      </div>
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Full Name *
+              {/* Form */}
+              <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
+                <AnimatePresence mode="wait">
+                  {!isSubmitted ? (
+                    <motion.form
+                      key="sync-form"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      onSubmit={handleSubmit}
+                      className="space-y-8"
+                    >
+                      <div className="grid md:grid-cols-2 gap-8">
+                        <div className="space-y-3">
+                          <label className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] pl-1 flex items-center gap-2">
+                            <ChevronRight className="w-3 h-3 text-[#f7961f]" />
+                            USR_IDENTIFIER
                           </label>
-                          <div className="relative group">
-                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#f7961f] transition-colors" />
-                            <input
-                              type="text"
-                              required
-                              value={formData.name}
-                              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                              className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#f7961f] focus:border-[#f7961f] transition-all duration-200 bg-white text-gray-900"
-                              placeholder="Enter your full name"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-1">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Email Address *
-                          </label>
-                          <div className="relative group">
-                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#f7961f] transition-colors" />
-                            <input
-                              type="email"
-                              required
-                              value={formData.email}
-                              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                              className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#f7961f] focus:border-[#f7961f] transition-all duration-200 bg-white text-gray-900"
-                              placeholder="Enter your email address"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-1">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Phone Number *
-                          </label>
-                          <div className="relative group">
-                            <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#f7961f] transition-colors" />
-                            <input
-                              type="tel"
-                              required
-                              value={formData.phone}
-                              onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                              className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#f7961f] focus:border-[#f7961f] transition-all duration-200 bg-white text-gray-900"
-                              placeholder="Enter your phone number"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-1">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Company/Organization
-                          </label>
-                          <div className="relative group">
-                            <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#f7961f] transition-colors" />
-                            <input
-                              type="text"
-                              value={formData.company}
-                              onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
-                              className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#f7961f] focus:border-[#f7961f] transition-all duration-200 bg-white text-gray-900"
-                              placeholder="Enter your company name"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Services Section */}
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="w-7 h-7 bg-gradient-to-r from-[#f7961f] to-[#e07a00] rounded-lg flex items-center justify-center">
-                          <Layout className="w-4 h-4 text-white" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-gray-900">Services Needed *</h3>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {serviceOptions.map((service) => (
-                          <button
-                            key={service.id}
-                            type="button"
-                            onClick={() => handleServiceToggle(service.id)}
-                            className={`p-4 border-2 rounded-xl transition-all duration-200 text-left relative overflow-hidden group ${formData.services.includes(service.id)
-                                ? 'border-[#f7961f] bg-gradient-to-r from-orange-50 to-amber-50 text-[#e07a00] shadow-md'
-                                : 'border-gray-200 hover:border-gray-300 text-gray-700 bg-white hover:shadow-sm'
-                              }`}
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className={`p-2 rounded-lg transition-all duration-200 ${formData.services.includes(service.id)
-                                  ? 'bg-gradient-to-r from-[#f7961f] to-[#e07a00] text-white'
-                                  : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'
-                                }`}>
-                                <service.icon className="w-5 h-5" />
-                              </div>
-                              <div>
-                                <span className="font-semibold text-base">{service.label}</span>
-                                {formData.services.includes(service.id) && (
-                                  <div className="absolute top-2 right-2 w-5 h-5 bg-[#f7961f] rounded-full flex items-center justify-center text-white text-sm">
-                                    ✓
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Project Details Section */}
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="w-7 h-7 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                          <Briefcase className="w-4 h-4 text-white" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-gray-900">Project Details</h3>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Timeline
-                          </label>
-                          <select
-                            value={formData.timeline}
-                            onChange={(e) => setFormData(prev => ({ ...prev, timeline: e.target.value }))}
-                            className="w-full px-3 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#f7961f] focus:border-[#f7961f] transition-all duration-200 bg-white text-gray-900"
-                          >
-                            <option value="" className="text-gray-500">Select timeline</option>
-                            <option value="ASAP" className="text-gray-900">ASAP</option>
-                            <option value="1-2 weeks" className="text-gray-900">1-2 weeks</option>
-                            <option value="1 month" className="text-gray-900">1 month</option>
-                            <option value="2-3 months" className="text-gray-900">2-3 months</option>
-                            <option value="3+ months" className="text-gray-900">3+ months</option>
-                            <option value="Flexible" className="text-gray-900">Flexible</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="block text-sm font-medium text-gray-700">
-                          Project Description *
-                        </label>
-                        <div className="relative group">
-                          <MessageSquare className="absolute left-3 top-3 w-4 h-4 text-gray-400 group-focus-within:text-[#f7961f] transition-colors" />
-                          <textarea
+                          <input
                             required
-                            rows={4}
-                            value={formData.description}
-                            onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                            className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#f7961f] focus:border-[#f7961f] transition-all duration-200 resize-none bg-white text-gray-900"
-                            placeholder="Tell us about your project requirements, goals, and any specific features you need..."
+                            value={formData.name}
+                            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                            placeholder="Full Name / Handle"
+                            className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-5 py-3.5 text-white placeholder:text-white/10 focus:border-[#f7961f]/40 transition-all font-mono text-sm"
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <label className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] pl-1 flex items-center gap-2">
+                            <ChevronRight className="w-3 h-3 text-[#f7961f]" />
+                            USR_TELEMETRY
+                          </label>
+                          <input
+                            required
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                            placeholder="Email Vector"
+                            className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-5 py-3.5 text-white placeholder:text-white/10 focus:border-[#f7961f]/40 transition-all font-mono text-sm"
                           />
                         </div>
                       </div>
-                    </div>
 
-                    {/* Enhanced Submit Buttons */}
-                    <div className="flex gap-3 pt-6 border-t border-gray-200">
-                      <button
-                        type="button"
-                        onClick={onClose}
-                        className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 font-medium"
-                      >
-                        Cancel
-                      </button>
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] pl-1 flex items-center gap-2">
+                          <ChevronRight className="w-3 h-3 text-[#f7961f]" />
+                          ARCH_PROTOCOL
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                          {protocolOptions.map((opt) => (
+                            <button
+                              key={opt.id}
+                              type="button"
+                              onClick={() => setFormData(prev => ({ ...prev, protocol: opt.id }))}
+                              className={`p-4 rounded-2xl border transition-all flex flex-col items-center gap-3 group ${formData.protocol === opt.id
+                                ? 'bg-[#f7961f] border-[#f7961f] text-black shadow-[0_0_20px_rgba(247,150,31,0.3)]'
+                                : 'bg-white/[0.02] border-white/5 text-white/40 hover:border-white/20'
+                                }`}
+                            >
+                              <opt.icon className={`w-5 h-5 ${formData.protocol === opt.id ? 'text-black' : 'text-white/20 group-hover:text-[#f7961f]'} transition-colors`} />
+                              <span className="text-[9px] font-mono font-black uppercase text-center leading-tight">{opt.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] pl-1 flex items-center gap-2">
+                          <ChevronRight className="w-3 h-3 text-[#f7961f]" />
+                          ARCH_SPECIFICATIONS
+                        </label>
+                        <textarea
+                          required
+                          rows={4}
+                          value={formData.description}
+                          onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                          placeholder="Describe your digital blueprint requirements..."
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-5 py-3.5 text-white placeholder:text-white/10 focus:border-[#f7961f]/40 transition-all font-mono text-sm resize-none"
+                        />
+                      </div>
+
                       <button
                         type="submit"
-                        disabled={!isFormValid || isSubmitting}
-                        className="flex-1 px-6 py-3 bg-[#f7961f] text-white rounded-lg hover:bg-[#e07a00] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2 font-medium shadow-md hover:shadow-lg"
+                        disabled={isSubmitting}
+                        className="group relative w-full bg-white text-black font-black py-5 rounded-[1.5rem] flex items-center justify-center gap-3 overflow-hidden transition-all active:scale-[0.98] disabled:opacity-50"
                       >
-                        {isSubmitting ? (
-                          <>
-                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            <Send className="w-4 h-4" />
-                            Send Inquiry
-                          </>
-                        )}
+                        <div className="absolute inset-0 bg-[#f7961f] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                        <span className="relative z-10 group-hover:text-white transition-colors flex items-center gap-3 uppercase tracking-widest text-xs">
+                          {isSubmitting ? (
+                            <>
+                              <Zap className="w-4 h-4 animate-spin" />
+                              SYNC_IN_PROGRESS
+                            </>
+                          ) : (
+                            <>
+                              INITIALIZE_SYNC
+                              <ChevronRight className="w-4 h-4" />
+                            </>
+                          )}
+                        </span>
                       </button>
-                    </div>
-                  </form>
-                </div>
-              )}
+                    </motion.form>
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="h-full flex flex-col items-center justify-center py-12 text-center"
+                    >
+                      <div className="w-24 h-24 rounded-full bg-[#f7961f]/10 border border-[#f7961f]/20 flex items-center justify-center mb-8 relative">
+                        <div className="absolute inset-0 rounded-full border border-[#f7961f] animate-ping opacity-20" />
+                        <ShieldCheck className="w-10 h-10 text-[#f7961f]" />
+                      </div>
+                      <h3 className="text-3xl font-black text-white uppercase tracking-tight mb-4">Transmission Successful</h3>
+                      <p className="text-white/40 font-mono text-sm max-w-sm mb-8">
+                        Your architectural request has been buffered into our priority queue. Response latency: {'<'} 24hr.
+                      </p>
+                      <div className="px-6 py-2 rounded-full bg-white/5 border border-white/5 font-mono text-[10px] text-white/20 uppercase tracking-[0.2em]">
+                        Session Reference: {sessionId}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         </div>
       )}
+
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(247, 150, 31, 0.2);
+        }
+      `}</style>
     </AnimatePresence>
   )
 
-  // Render the popup using a portal directly to document.body
   return createPortal(popupContent, document.body)
 }

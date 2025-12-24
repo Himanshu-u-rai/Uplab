@@ -1,35 +1,27 @@
 'use client'
 
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import {
   Send,
   Mail,
-  MapPin,
-  Clock,
   CheckCircle,
-  Rocket
+  Terminal,
+  Cpu,
+  ShieldCheck,
+  Zap,
+  Clock,
+  ChevronRight,
+  Globe
 } from 'lucide-react'
 
 const projectTypes = [
-  'Website Development & Design',
-  'E-commerce Platform',
-  'Mobile App Development',
-  'Digital Marketing & SEO',
-  'Branding & Logo Design',
-  'Custom Software Development',
-  'UI/UX Design Services',
-  'Complete Digital Transformation',
-  'Other (Please specify)'
-]
-
-const budgetRanges = [
-  '₹50K - ₹1L (Startup)',
-  '₹1L - ₹3L (Small Business)',
-  '₹3L - ₹8L (Medium Business)',
-  '₹8L - ₹20L (Enterprise)',
-  '₹20L+ (Large Scale)',
-  'Let\'s discuss budget'
+  'Web Architecture (Next.js/TS)',
+  'Mobile Ecosystems (Native/Flutter)',
+  'Cloud Infrastructure (AWS/GCP)',
+  'AI/ML Integration',
+  'UI/UX Engineering',
+  'Legacy Refactoring'
 ]
 
 export default function SimpleContactSection() {
@@ -37,15 +29,19 @@ export default function SimpleContactSection() {
     name: '',
     email: '',
     company: '',
-    phone: '',
     projectType: '',
-    budget: '',
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [sessionId, setSessionId] = useState('')
+
   const sectionRef = useRef(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 })
+
+  useEffect(() => {
+    setSessionId(`SES_${Math.floor(Math.random() * 900000 + 100000)}`)
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -58,346 +54,242 @@ export default function SimpleContactSection() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission delay
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    // Simulate system processing
+    await new Promise(resolve => setTimeout(resolve, 2000))
 
-    // Create email body
     const emailBody = `
-New Project Inquiry from Uplab Website
+SYSTEM_INQUIRY_DATA:
+- SESSION: ${sessionId}
+- NAME: ${formData.name}
+- EMAIL: ${formData.email}
+- COMPANY: ${formData.company}
+- TYPE: ${formData.projectType}
 
-Contact Information:
-- Name: ${formData.name}
-- Email: ${formData.email}
-- Phone: ${formData.phone}
-- Company: ${formData.company}
-
-Project Details:
-- Service Type: ${formData.projectType}
-- Budget Range: ${formData.budget}
-
-Message:
+MESS_CONTENT:
 ${formData.message}
-
----
-Sent from Uplab Contact Form
     `.trim()
 
-    // Send email using mailto
-    const mailtoLink = `mailto:Himanshurai114@gmail.com?subject=New Project Inquiry from ${formData.name}&body=${encodeURIComponent(emailBody)}`
+    const mailtoLink = `mailto:Himanshurai114@gmail.com?subject=[${sessionId}] Project Inquiry from ${formData.name}&body=${encodeURIComponent(emailBody)}`
     window.location.href = mailtoLink
 
     setIsSubmitting(false)
     setIsSubmitted(true)
-
-    // Reset form after showing success message
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        projectType: '',
-        budget: '',
-        message: '',
-      })
-    }, 3000)
   }
 
   return (
-    <section
-      ref={sectionRef}
-      id="contact"
-      className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#242423] via-[#3d3d3c] to-[#242423] relative overflow-hidden"
-    >
-      {/* Enhanced Background Effects - Mobile Optimized */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-[#f7961f]/5 sm:bg-[#f7961f]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" />
-        <div className="absolute top-1/2 right-0 w-48 sm:w-96 h-48 sm:h-96 bg-[#f7961f]/5 sm:bg-[#f7961f]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute bottom-0 left-1/3 w-48 sm:w-96 h-48 sm:h-96 bg-white/5 sm:bg-white/10 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-3 sm:opacity-5" />
-
-        {/* Floating Particles - Reduced for mobile */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white/20 rounded-full opacity-50 sm:opacity-100"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.1, 0.4, 0.1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+    <section ref={sectionRef} id="contact" className="py-24 bg-[#0a0a0a] relative overflow-hidden">
+      {/* Background Infrastructure */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(247,150,31,0.08),transparent_70%)]" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={isInView ? { scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f7961f]/10 text-[#f7961f] text-sm font-semibold mb-4"
-          >
-            <Mail className="w-4 h-4" />
-            <span>Contact Us</span>
-          </motion.div>
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Let's Build Something{' '}
-            <span className="bg-gradient-to-r from-[#f7961f] to-[#ffb347] bg-clip-text text-transparent">
-              Amazing Together
-            </span>
-          </h2>
+            {/* Left Column: Technical Context */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+              >
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8">
+                  <Terminal className="w-3 h-3 text-[#f7961f]" />
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50">Inquiry_Terminal_v1.0</span>
+                </div>
 
-          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Ready to transform your digital presence? Share your project details and let's create something extraordinary.
-          </p>
-        </motion.div>
+                <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight leading-tight">
+                  Initialize <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f7961f] to-[#ffb347]">Project Sync</span>
+                </h2>
 
-        {/* Contact Form - Mobile Optimized */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 border border-white/10 shadow-2xl">
-            <AnimatePresence mode="wait">
-              {!isSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <div className="text-center mb-4 sm:mb-6 md:mb-8">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={isInView ? { scale: 1 } : {}}
-                      transition={{ duration: 0.6, delay: 0.9 }}
-                      className="w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 bg-[#f7961f] rounded-lg xs:rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4"
-                    >
-                      <Mail className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-white" />
-                    </motion.div>
-                    <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-4">Send Us a Message</h3>
-                    <p className="text-gray-400 text-xs xs:text-sm sm:text-base md:text-lg">
-                      Tell us about your project and we'll get back to you within 24 hours
-                    </p>
+                <p className="text-white/40 text-lg font-light leading-relaxed mb-12 max-w-md">
+                  Establish a secure connection with our engineering team. We'll analyze your requirements and return a technical roadmap within 24 hours.
+                </p>
+
+                {/* Service Status Tiles */}
+                <div className="space-y-4">
+                  {[
+                    { icon: Globe, label: 'Response Latency', val: '< 24hr', color: 'text-green-500' },
+                    { icon: ShieldCheck, label: 'Encryption', val: 'AES-256', color: 'text-[#f7961f]' },
+                    { icon: Cpu, label: 'Availability', val: '99.9%', color: 'text-blue-500' }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-white/40" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-[10px] uppercase tracking-widest text-white/20 font-bold">{item.label}</div>
+                        <div className={`text-sm font-mono font-bold ${item.color}`}>{item.val}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right Column: Terminal Interface */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.2 }}
+              className="relative"
+            >
+              {/* Terminal Window Decoration */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f7961f]/20 to-transparent rounded-[2.5rem] blur opacity-20" />
+
+              <div className="relative bg-[#0f0f0f] border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl">
+                {/* Window Header */}
+                <div className="px-8 py-4 bg-white/5 border-bottom border-white/5 flex items-center justify-between">
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500/20" />
+                    <div className="w-3 h-3 rounded-full bg-amber-500/20" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/20" />
                   </div>
+                  <div className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{sessionId}</div>
+                </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 md:space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                      <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
-                          Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
-                          placeholder="Enter your full name"
-                          required
-                        />
-                      </div>
+                <div className="p-8 md:p-10">
+                  <AnimatePresence mode="wait">
+                    {!isSubmitted ? (
+                      <motion.form
+                        key="contact-form"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onSubmit={handleSubmit}
+                        className="space-y-6"
+                      >
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-mono text-white/30 uppercase tracking-widest pl-1">USR_NAME</label>
+                            <input
+                              type="text"
+                              name="name"
+                              value={formData.name}
+                              onChange={handleInputChange}
+                              placeholder="Full Name"
+                              required
+                              className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-white/10 focus:border-[#f7961f]/40 transition-all focus:outline-none font-mono text-sm"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-mono text-white/30 uppercase tracking-widest pl-1">USR_EMAIL</label>
+                            <input
+                              type="email"
+                              name="email"
+                              value={formData.email}
+                              onChange={handleInputChange}
+                              placeholder="email@system.com"
+                              required
+                              className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-white/10 focus:border-[#f7961f]/40 transition-all focus:outline-none font-mono text-sm"
+                            />
+                          </div>
+                        </div>
 
-                      <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
-                          Email Address *
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
-                          placeholder="your@email.com"
-                          required
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
-                          Company Name
-                        </label>
-                        <input
-                          type="text"
-                          name="company"
-                          value={formData.company}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
-                          placeholder="Your company name"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
-                          placeholder="+91 98765 43210"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Project Type *
-                        </label>
-                        <select
-                          name="projectType"
-                          value={formData.projectType}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
-                          required
-                        >
-                          <option value="" className="bg-gray-800">Select a service</option>
-                          {projectTypes.map((type) => (
-                            <option key={type} value={type} className="bg-gray-800">
-                              {type}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Budget Range
-                        </label>
-                        <select
-                          name="budget"
-                          value={formData.budget}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all text-sm sm:text-base"
-                        >
-                          <option value="" className="bg-gray-800">Select budget range</option>
-                          {budgetRanges.map((range) => (
-                            <option key={range} value={range} className="bg-gray-800">
-                              {range}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Project Details *
-                      </label>
-                      <textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        rows={5}
-                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:border-[#f7961f] focus:ring-2 focus:ring-[#f7961f]/20 transition-all resize-none text-sm sm:text-base"
-                        placeholder="Tell us about your project, goals, and any specific requirements..."
-                        required
-                      />
-                    </div>
-
-                    <motion.button
-                      type="submit"
-                      disabled={isSubmitting}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`w-full py-3 sm:py-4 px-6 sm:px-8 bg-[#f7961f] hover:bg-[#e07a00] text-white font-semibold rounded-lg sm:rounded-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 ${isSubmitting ? 'opacity-80 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-[#f7961f]/25'
-                        } text-sm sm:text-base`}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                            className="w-4 h-4 sm:w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-white/30 uppercase tracking-widest pl-1">CORP_ID</label>
+                          <input
+                            type="text"
+                            name="company"
+                            value={formData.company}
+                            onChange={handleInputChange}
+                            placeholder="Company (Optional)"
+                            className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-white/10 focus:border-[#f7961f]/40 transition-all focus:outline-none font-mono text-sm"
                           />
-                          Sending Message...
-                        </>
-                      ) : (
-                        <>
-                          Send Message
-                          <Send className="w-4 h-4 sm:w-5 h-5" />
-                        </>
-                      )}
-                    </motion.button>
+                        </div>
 
-                    <div className="text-center">
-                      <p className="text-xs sm:text-sm text-gray-400">
-                        By submitting this form, you agree to our privacy policy and terms of service.
-                      </p>
-                    </div>
-                  </form>
-                </motion.div>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  className="text-center py-8 sm:py-12"
-                >
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
-                    className="w-16 h-16 sm:w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6"
-                  >
-                    <CheckCircle className="w-8 h-8 sm:w-10 h-10 text-white" />
-                  </motion.div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-white/30 uppercase tracking-widest pl-1">DEPLOY_TYPE</label>
+                          <select
+                            name="projectType"
+                            value={formData.projectType}
+                            onChange={handleInputChange}
+                            required
+                            className="w-full bg-[#1a1a1a] border border-white/5 rounded-xl px-4 py-3 text-white focus:border-[#f7961f]/40 transition-all focus:outline-none font-mono text-sm appearance-none"
+                          >
+                            <option value="">Select Protocol</option>
+                            {projectTypes.map(type => (
+                              <option key={type} value={type}>{type}</option>
+                            ))}
+                          </select>
+                        </div>
 
-                  <motion.h3
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4"
-                  >
-                    Message Sent Successfully!
-                  </motion.h3>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-mono text-white/30 uppercase tracking-widest pl-1">MESS_CONTENT</label>
+                          <textarea
+                            name="message"
+                            value={formData.message}
+                            onChange={handleInputChange}
+                            placeholder="Describe your architectural requirements..."
+                            required
+                            rows={4}
+                            className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-white placeholder:text-white/10 focus:border-[#f7961f]/40 transition-all focus:outline-none font-mono text-sm resize-none"
+                          />
+                        </div>
 
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="text-gray-300 text-sm sm:text-base md:text-lg mb-6 sm:mb-8"
-                  >
-                    Thank you for reaching out! We'll get back to you within 24 hours.
-                  </motion.p>
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="group relative w-full bg-gradient-to-r from-[#f7961f] to-[#e07a00] text-black font-black py-4 rounded-xl flex items-center justify-center gap-3 overflow-hidden transition-transform active:scale-[0.98] disabled:opacity-50"
+                        >
+                          <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+                          {isSubmitting ? (
+                            <Zap className="w-5 h-5 animate-spin" />
+                          ) : (
+                            <>
+                              <span className="relative z-10">INITIALIZE_CONNECTION</span>
+                              <ChevronRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                            </>
+                          )}
+                        </button>
+                      </motion.form>
+                    ) : (
+                      <motion.div
+                        key="success-message"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="py-12 text-center space-y-6"
+                      >
+                        <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto">
+                          <CheckCircle className="w-10 h-10 text-green-500" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-black text-white mb-2 uppercase tracking-tight">Transmission Logic: Success</h3>
+                          <p className="text-white/40 text-sm font-mono">Archive reference: {sessionId}</p>
+                        </div>
+                        <p className="text-white/60 leading-relaxed max-w-xs mx-auto">
+                          Your technical request has been encrypted and buffered. Expect an engineering response within the local time window.
+                        </p>
+                        <button
+                          onClick={() => setIsSubmitted(false)}
+                          className="text-[#f7961f] text-xs font-mono font-bold uppercase tracking-widest hover:underline"
+                        >
+                          Send Another Transmission
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="flex items-center justify-center gap-2 text-[#f7961f] text-sm sm:text-base"
-                  >
-                    <Rocket className="w-4 h-4 sm:w-5 h-5" />
-                    <span>We're excited to work with you!</span>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+              {/* Terminal Metadata Footer */}
+              <div className="mt-8 flex items-center justify-center gap-8 text-[9px] font-mono text-white/10 uppercase tracking-[0.3em]">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-3 h-3" />
+                  <span>Uptime: 24/7/365</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500/20 animate-pulse" />
+                  <span>Signal: Strong</span>
+                </div>
+              </div>
+            </motion.div>
+
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
-

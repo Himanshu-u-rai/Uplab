@@ -2,121 +2,151 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Sparkles, Zap, Shield, TrendingUp } from 'lucide-react'
+import {
+    Terminal,
+    Cpu,
+    Activity,
+    ShieldCheck,
+    Network,
+    Binary,
+    GitBranch,
+    Database
+} from 'lucide-react'
 
-const features = [
+const companySpecs = [
     {
-        icon: Zap,
-        title: 'Fast Delivery',
-        description: 'Quick turnaround without compromising quality',
+        icon: Binary,
+        title: 'Code Excellence',
+        description: 'Our engineering protocols prioritize performance, security, and long-term maintainability.',
+        tag: 'Protocol: ALPHA-01'
     },
     {
-        icon: Shield,
-        title: 'Reliable Support',
-        description: '24/7 assistance for all your needs',
+        icon: Network,
+        title: 'Interconnected UX',
+        description: 'We build digital ecosystems where front-end elegance meets robust back-end architecture.',
+        tag: 'Protocol: NODE-SYNC'
     },
     {
-        icon: TrendingUp,
-        title: 'Growth Focused',
-        description: 'Solutions that scale with your business',
-    },
+        icon: GitBranch,
+        title: 'Agile Velocity',
+        description: 'Rapid deployment cycles with zero-downtime integration for your mission-critical products.',
+        tag: 'Protocol: CI/CD'
+    }
 ]
 
 export default function EnhancedAboutSection() {
     const sectionRef = useRef(null)
-    const isInView = useInView(sectionRef, { once: true, amount: 0.3 })
+    const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
 
     return (
-        <section ref={sectionRef} className="py-20 bg-white relative overflow-hidden">
-            {/* Subtle Background Pattern */}
-            <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(#f7961f 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+        <section ref={sectionRef} id="about" className="py-24 bg-[#fafafa] relative overflow-hidden">
+            {/* Structural Decor - Blueprint style */}
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:40px_40px]" />
+                <div className="absolute top-1/2 left-0 right-0 h-px bg-black" />
+                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black" />
+            </div>
 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                {/* Main Content */}
-                <div className="max-w-6xl mx-auto">
-                    {/* Top Section - Big Statement */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
-                    >
+            <div className="container mx-auto px-4 relative z-10">
+                <div className="grid lg:grid-cols-12 gap-16 items-start">
+
+                    {/* Left Column: Mission & Identity */}
+                    <div className="lg:col-span-5">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f7961f]/10 text-[#e07a00] text-sm font-semibold mb-4"
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={isInView ? { opacity: 1, x: 0 } : {}}
+                            transition={{ duration: 0.8 }}
                         >
-                            <Sparkles className="w-4 h-4" />
-                            About Us
-                        </motion.div>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 border border-black/10 mb-8">
+                                <Terminal className="w-3 h-3 text-[#f7961f]" />
+                                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-black/50">Who_we_are.sys</span>
+                            </div>
 
-                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                            We Build{' '}
-                            <span className="bg-gradient-to-r from-[#f7961f] to-[#e07a00] bg-clip-text text-transparent">
-                                Digital Experiences
-                            </span>
-                        </h2>
+                            <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-8 tracking-tight leading-tight">
+                                Engineering <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f7961f] to-[#e07a00]">Digital Core</span>
+                            </h2>
 
-                        <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
-                            Since 2022, we've helped businesses create digital products that convert visitors into customers.
-                        </p>
-                    </motion.div>
+                            <p className="text-gray-600 text-lg md:text-xl font-light leading-relaxed mb-10">
+                                Since 2022, we have been operating at the intersection of complex problem solving and sophisticated user interface design. We don't just build websites; we architect digital assets.
+                            </p>
 
-                    {/* Features Row */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="grid md:grid-cols-3 gap-6 mb-16"
-                    >
-                        {features.map((feature, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                                className="group text-center p-6 rounded-2xl bg-gray-50 hover:bg-gradient-to-br hover:from-[#f7961f]/5 hover:to-[#e07a00]/5 border border-transparent hover:border-[#f7961f]/20 transition-all duration-300"
-                            >
-                                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[#f7961f] to-[#e07a00] flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-[#f7961f]/20">
-                                    <feature.icon className="w-7 h-7 text-white" />
-                                </div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
-                                <p className="text-gray-600 text-sm">{feature.description}</p>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-
-                    {/* Stats Bar */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.6, delay: 0.6 }}
-                        className="bg-gradient-to-r from-[#242423] to-[#3d3d3c] rounded-2xl p-8 shadow-xl"
-                    >
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                            {[
-                                { number: '15+', label: 'Projects Delivered' },
-                                { number: '100%', label: 'Client Satisfaction' },
-                                { number: '3+', label: 'Years Experience' },
-                                { number: '24/7', label: 'Support Available' },
-                            ].map((stat, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                                    transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
-                                    className="text-center"
-                                >
-                                    <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#f7961f] to-[#ffb347] bg-clip-text text-transparent mb-1">
-                                        {stat.number}
+                            {/* Technical Stat Panel */}
+                            <div className="p-8 rounded-3xl bg-white border border-black/[0.08] shadow-sm relative overflow-hidden group">
+                                <div className="grid grid-cols-2 gap-8 relative z-10">
+                                    <div>
+                                        <div className="text-3xl font-black text-gray-900 font-mono">250+</div>
+                                        <div className="text-[10px] uppercase tracking-widest text-black/40 font-bold">Successful Commits</div>
                                     </div>
-                                    <div className="text-gray-400 text-sm">{stat.label}</div>
-                                </motion.div>
+                                    <div>
+                                        <div className="text-3xl font-black text-gray-900 font-mono">100%</div>
+                                        <div className="text-[10px] uppercase tracking-widest text-black/40 font-bold">Uptime Delivery</div>
+                                    </div>
+                                </div>
+                                {/* Decorative scanning line */}
+                                <motion.div
+                                    animate={{ left: ['-100%', '200%'] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                                    className="absolute top-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-[#f7961f]/5 to-transparent skew-x-12"
+                                />
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    {/* Right Column: Protocols & Values */}
+                    <div className="lg:col-span-7">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="space-y-6"
+                        >
+                            {companySpecs.map((spec, index) => (
+                                <div
+                                    key={index}
+                                    className="p-8 rounded-3xl border border-black/[0.08] bg-white shadow-sm hover:shadow-2xl hover:shadow-[#f7961f]/10 hover:border-[#f7961f]/30 transition-all duration-500 group"
+                                >
+                                    <div className="flex flex-col md:flex-row gap-6 items-start">
+                                        <div className="w-14 h-14 rounded-2xl bg-black flex items-center justify-center text-[#f7961f] group-hover:scale-110 transition-transform duration-500">
+                                            <spec.icon className="w-7 h-7" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-3 mb-2">
+                                                <span className="text-[10px] font-mono text-black/20 font-bold uppercase tracking-wider">{spec.tag}</span>
+                                                <div className="flex-1 h-px bg-black/[0.05]" />
+                                            </div>
+                                            <h3 className="text-2xl font-black text-gray-900 mb-3 group-hover:text-[#f7961f] transition-colors">{spec.title}</h3>
+                                            <p className="text-gray-500 leading-relaxed font-medium">
+                                                {spec.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             ))}
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
                 </div>
+
+                {/* Dynamic Infrastructure Footer */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="mt-24 pt-12 border-t border-black/[0.05] flex flex-wrap justify-center gap-12"
+                >
+                    <div className="flex items-center gap-3 text-black/30 group">
+                        <Cpu className="w-5 h-5 group-hover:text-[#f7961f] transition-colors" />
+                        <span className="text-[11px] font-mono font-bold uppercase tracking-[0.3em]">State_of_the_art_stack</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-black/30 group">
+                        <ShieldCheck className="w-5 h-5 group-hover:text-[#f7961f] transition-colors" />
+                        <span className="text-[11px] font-mono font-bold uppercase tracking-[0.3em]">Soc2_Compliant_Ops</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-black/30 group">
+                        <Activity className="w-5 h-5 group-hover:text-[#f7961f] transition-colors" />
+                        <span className="text-[11px] font-mono font-bold uppercase tracking-[0.3em]">Real_time_Analytics</span>
+                    </div>
+                </motion.div>
             </div>
         </section>
     )

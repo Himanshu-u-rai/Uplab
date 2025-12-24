@@ -2,7 +2,8 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Terminal, Cpu, Zap, Activity } from 'lucide-react'
+import Image from 'next/image'
 
 export default function AdvancedHeroSection() {
   const containerRef = useRef(null)
@@ -11,179 +12,147 @@ export default function AdvancedHeroSection() {
     offset: ["start start", "end start"]
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 500])
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
 
   return (
-    <section ref={containerRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16 sm:pt-24 pb-12 sm:pb-24 z-20 bg-[#242423]">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-          style={{ backgroundImage: 'url(/hero_abstract_orange_dark.png)' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#242423]/90 via-[#242423]/70 to-[#242423]/90" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(247,150,31,0.15),transparent_70%)]" />
-        <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none mix-blend-overlay" />
+    <section ref={containerRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] pt-24 pb-20">
+      {/* High-Tech Background Elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(247,150,31,0.08),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-[#f7961f]/30 to-transparent" />
       </div>
 
-      {/* Floating Particles - Reduced for mobile */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
+
+          {/* Top Pill */}
           <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-[#f7961f] rounded-full opacity-50 sm:opacity-100"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 0.5, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Geometric Shapes - Responsive sizing */}
-      <motion.div
-        className="absolute top-10 sm:top-20 right-4 sm:right-20 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-[#f7961f]/10 sm:from-[#f7961f]/20 to-[#e07a00]/10 sm:to-[#e07a00]/20 rounded-full blur-2xl sm:blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-
-      <motion.div
-        className="absolute bottom-10 sm:bottom-20 left-4 sm:left-20 w-32 sm:w-72 h-32 sm:h-72 bg-gradient-to-r from-[#f7961f]/10 sm:from-[#f7961f]/15 to-white/5 sm:to-white/10 rounded-full blur-2xl sm:blur-3xl"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          rotate: [360, 180, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-
-      <motion.div style={{ y, opacity }} className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-30">
-        <div className="text-center max-w-6xl mx-auto">
-          {/* Main Heading with Advanced Typography - Mobile Optimized */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="mb-4 sm:mb-6 md:mb-8"
+            transition={{ duration: 0.6 }}
+            className="mb-8 flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
           >
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tight">
-              <motion.span
-                className="block"
-                initial={{ opacity: 0, x: -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                Digital
-              </motion.span>
-              <motion.span
-                className="block bg-gradient-to-r from-[#f7961f] via-[#ffb347] to-[#f7961f] bg-clip-text text-transparent"
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                Excellence
-              </motion.span>
-              <motion.span
-                className="block text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white/80 mt-2 sm:mt-4"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1 }}
-              >
-                Redefined
-              </motion.span>
-            </h1>
+            <span className="flex h-2 w-2 rounded-full bg-[#f7961f] animate-pulse" />
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50">System Status: Optimal</span>
           </motion.div>
 
-          {/* Enhanced Subtitle - Mobile Optimized */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
+          {/* Main Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="text-sm xs:text-base sm:text-lg md:text-xl text-white/70 mb-6 sm:mb-8 lg:mb-10 max-w-2xl lg:max-w-3xl mx-auto leading-relaxed font-light px-2 sm:px-4"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-4xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight mb-8"
           >
-            We craft exceptional digital experiences that drive growth,
-            engagement, and success in the modern digital landscape.
+            Engineering <br />
+            <span className="text-white">Digital </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f7961f] via-[#ffb347] to-[#f7961f] bg-[length:200%_auto] animate-gradient-x">
+              Velocity
+            </span>
+          </motion.h1>
+
+          {/* Subtext */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg md:text-xl text-white/40 max-w-2xl font-light leading-relaxed mb-12"
+          >
+            We deploy high-performance engineering teams that transform complex infrastructure into seamless digital experiences.
           </motion.p>
 
-          {/* Advanced CTA Section - Mobile First */}
+          {/* Action Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 md:mb-12 lg:mb-16 px-2 sm:px-4"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 mb-20"
           >
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative px-5 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-4 md:py-5 bg-[#f7961f] text-white font-bold text-sm sm:text-base md:text-lg rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden cursor-pointer inline-block w-full sm:w-auto text-center max-w-sm sm:max-w-none"
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById('contact')?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                })
-              }}
-            >
-              <div className="absolute inset-0 bg-[#e07a00] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative flex items-center justify-center gap-2 sm:gap-3">
-                <span>Start Your Journey</span>
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                </motion.div>
-              </div>
-
-              {/* Shimmer Effect */}
-              <motion.div
-                className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                initial={{ x: '-100%' }}
-                animate={{ x: '100%' }}
-                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-              />
-            </motion.a>
-
-            <motion.a
-              href="#portfolio"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-5 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-semibold text-sm sm:text-base md:text-lg rounded-xl sm:rounded-2xl hover:bg-white/20 transition-all duration-300 cursor-pointer inline-block w-full sm:w-auto text-center max-w-xs sm:max-w-none"
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById('portfolio')?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                })
-              }}
+              className="px-10 py-4 bg-[#f7961f] text-black font-bold rounded-full flex items-center justify-center gap-2 transition-all hover:shadow-[0_0_20px_rgba(247,150,31,0.4)]"
             >
-              View Our Work
+              Initialize Project
+              <ArrowRight className="w-5 h-5" />
+            </motion.a>
+            <motion.a
+              href="#portfolio"
+              whileHover={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+              className="px-10 py-4 border border-white/10 text-white font-semibold rounded-full backdrop-blur-sm transition-all"
+            >
+              View Repository
             </motion.a>
           </motion.div>
-        </div>
-      </motion.div>
 
-    </section>
+          {/* Main Visual Component */}
+          <motion.div
+            style={{ y, opacity, scale }}
+            className="relative w-full max-w-6xl mx-auto rounded-2xl border border-white/5 overflow-hidden shadow-2xl bg-[#0f0f0f]"
+          >
+            {/* Window Header */}
+            <div className="bg-white/5 border-b border-white/5 px-4 py-3 flex items-center justify-between">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500/50" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+                <div className="w-3 h-3 rounded-full bg-green-500/50" />
+              </div>
+              <div className="text-[10px] font-mono text-white/20 uppercase tracking-widest">uplab_infrastructure_v2.0</div>
+              <div className="w-10" />
+            </div>
+
+            {/* Dashboard Content */}
+            <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9]">
+              <Image
+                src="/it-hero-premium.png"
+                alt="Infrastructure Dashboard"
+                fill
+                className="object-cover opacity-80"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
+
+              {/* Overlay Stats - Glassmorphism */}
+              <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 px-2 sm:px-4">
+                {[
+                  { label: 'Latency', value: '4ms', icon: Activity },
+                  { label: 'Throughput', value: '1.2TB/s', icon: Zap },
+                  { label: 'Uptime', value: '99.99%', icon: Cpu },
+                  { label: 'Nodes', value: '412', icon: Terminal },
+                ].map((stat, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1 + (i * 0.1) }}
+                    className="bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-xl flex items-center gap-4"
+                  >
+                    <div className="p-1.5 sm:p-2 rounded-lg bg-[#f7961f]/10 text-[#f7961f]">
+                      <stat.icon className="w-4 h-4 sm:w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-[8px] sm:text-[10px] uppercase text-white/30 font-bold">{stat.label}</div>
+                      <div className="text-base sm:text-xl font-mono text-white">{stat.value}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div >
+
+      <style jsx>{`
+        @keyframes gradient-x {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .animate-gradient-x {
+          animation: gradient-x 15s ease infinite;
+        }
+      `}</style>
+    </section >
   )
 }

@@ -1,19 +1,18 @@
 'use client'
 
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import ProjectInquiryPopup from '@/components/ui/project-inquiry-popup'
 import { useRef, useState } from 'react'
 import {
   ChevronDown,
-  ChevronUp,
   HelpCircle,
-  MessageSquare,
   Clock,
-  DollarSign,
   Zap,
   Shield,
-  Users,
-  Rocket
+  Rocket,
+  Search,
+  Terminal,
+  Cpu,
+  Codesandbox
 } from 'lucide-react'
 import SchemaComponent from '@/components/ui/schema-component'
 import { createFAQSchema } from '@/lib/schema'
@@ -23,164 +22,115 @@ const faqCategories = [
     id: 'general',
     name: 'General',
     icon: HelpCircle,
-    color: 'from-[#f7961f] to-[#e07a00]'
   },
   {
     id: 'services',
-    name: 'Services',
-    icon: Zap,
-    color: 'from-[#e07a00] to-[#f7961f]'
+    name: 'Stack & Capabilities',
+    icon: Cpu,
   },
   {
     id: 'pricing',
-    name: 'Pricing',
-    icon: DollarSign,
-    color: 'from-[#f7961f] to-[#ffb347]'
+    name: 'Economics',
+    icon: Codesandbox,
   },
   {
     id: 'process',
-    name: 'Process',
+    name: 'Pipeline',
     icon: Rocket,
-    color: 'from-[#242423] to-[#3d3d3c]'
   },
   {
     id: 'support',
-    name: 'Support',
+    name: 'Maintenance',
     icon: Shield,
-    color: 'from-[#f7961f] to-[#e07a00]'
   }
 ]
 
 const faqs = [
   // General FAQs
   {
-    id: 1,
+    id: 'Q-1001',
     category: 'general',
-    question: 'What services does Uplab Digital Agency offer?',
-    answer: 'We offer comprehensive digital services including custom website development, mobile app development, SEO optimization, and digital marketing campaigns. Our team specializes in modern technologies like Next.js, React, and mobile frameworks to deliver cutting-edge solutions for businesses of all sizes.'
+    question: 'What core engineering services does Uplab provide?',
+    answer: 'We specialize in high-performance digital infrastructure, including custom web engineering (Next.js/React), distributed mobile ecosystems (Native/Flutter), and industrial-grade cloud architecture.'
   },
   {
-    id: 2,
+    id: 'Q-1002',
     category: 'general',
-    question: 'How long has Uplab been in business?',
-    answer: 'Uplab has been delivering exceptional digital solutions since 2020. Over the years, we\'ve completed 200+ projects, served clients across various industries, and built a reputation for quality, innovation, and client satisfaction.'
+    question: 'How does Uplab ensure project scalability?',
+    answer: 'Every deployment is built on a micro-service or modular foundation. We utilize edge computing and global CDNs to ensure 99.9% availability regardless of user load.'
   },
   {
-    id: 3,
+    id: 'Q-1003',
     category: 'general',
-    question: 'Do you work with businesses of all sizes?',
-    answer: 'Absolutely! We work with everyone from startups and small businesses to large enterprises. Our flexible approach and scalable solutions ensure we can meet the unique needs and budgets of organizations at any stage of growth.'
+    question: 'Do you manage legacy system migration?',
+    answer: 'Yes. Our senior engineering teams are experts in refactoring legacy monoliths into modern, scalable cloud architectures with zero data loss during transition.'
   },
 
   // Services FAQs
   {
-    id: 4,
+    id: 'Q-2001',
     category: 'services',
-    question: 'What technologies do you use for web development?',
-    answer: 'We use cutting-edge technologies including Next.js, React, TypeScript, Node.js, and modern CSS frameworks like Tailwind. Our tech stack ensures your website is fast, secure, scalable, and future-proof. We also integrate with popular CMS platforms and e-commerce solutions.'
+    question: 'Which technologies power your web deployments?',
+    answer: 'Our primary stack includes Next.js 15, TypeScript, Node.js, and PostgreSQL. We leverage Turbopack for rapid builds and Vercel/AWS for global distribution.'
   },
   {
-    id: 5,
+    id: 'Q-2002',
     category: 'services',
-    question: 'Can you develop both iOS and Android apps?',
-    answer: 'Yes! We develop native iOS and Android apps as well as cross-platform solutions using React Native and Flutter. Our mobile development team ensures your app provides an excellent user experience across all devices and platforms.'
-  },
-  {
-    id: 7,
-    category: 'services',
-    question: 'Do you provide ongoing maintenance and support?',
-    answer: 'Yes, we offer comprehensive maintenance packages including security updates, performance monitoring, content updates, backup management, and technical support. Our goal is to ensure your digital assets continue performing optimally long after launch.'
+    question: 'How do you handle mobile app security?',
+    answer: 'We implement AES-256 encryption, biometric authentication, and strict SOC2-compliant data handling protocols for all mobile deployments.'
   },
 
   // Pricing FAQs
   {
-    id: 8,
+    id: 'Q-3001',
     category: 'pricing',
-    question: 'How much does a typical website cost?',
-    answer: 'Website costs vary based on complexity, features, and requirements. Our projects typically range from ₹50K for simple websites to ₹20L+ for complex enterprise solutions. We provide detailed quotes after understanding your specific needs and objectives.'
+    question: 'How is the deployment cost calculated?',
+    answer: 'Pricing is based on engineering velocity, architectural complexity, and scaling requirements. We provide a transparent technical breakdown before initialization.'
   },
   {
-    id: 9,
+    id: 'Q-3002',
     category: 'pricing',
-    question: 'Do you offer payment plans or financing options?',
-    answer: 'Yes, we offer flexible payment structures including milestone-based payments, monthly installments, and custom payment plans. We understand cash flow is important for businesses, so we work with you to find a payment structure that works for your budget.'
-  },
-  {
-    id: 10,
-    category: 'pricing',
-    question: 'Are there any hidden costs or ongoing fees?',
-    answer: 'We believe in transparent pricing with no hidden costs. All expenses are clearly outlined in our proposals. The only ongoing costs would be optional maintenance packages, hosting (if we manage it), or additional features you request after project completion.'
-  },
-  {
-    id: 11,
-    category: 'pricing',
-    question: 'What factors affect the project cost?',
-    answer: 'Project costs depend on complexity, number of pages/features, custom functionality, integrations, design requirements, timeline, and ongoing support needs. We provide detailed breakdowns so you understand exactly what you\'re paying for.'
+    question: 'Are there recurring infrastructure costs?',
+    answer: 'Infrastructure costs are typically billed at-cost through your chosen provider (AWS/GCP), while we offer managed DevOps support for continuous optimization.'
   },
 
   // Process FAQs
   {
-    id: 12,
+    id: 'Q-4001',
     category: 'process',
-    question: 'What is your typical project timeline?',
-    answer: 'Timelines vary by project scope. Simple websites take 2-4 weeks, complex web applications take 2-4 months, and mobile apps typically take 3-6 months. We provide detailed project timelines during our initial consultation and keep you updated throughout the process.'
+    question: 'What is the standard development velocity?',
+    answer: 'Initial MVP deployment typically occurs within 4-6 weeks. Successive feature sprints are managed in 2-week agile cycles with continuous CI/CD integration.'
   },
   {
-    id: 13,
+    id: 'Q-4002',
     category: 'process',
-    question: 'How involved will I be in the development process?',
-    answer: 'We believe in collaborative development! You\'ll be involved in initial planning, design reviews, milestone demonstrations, and feedback sessions. We provide regular updates and ensure you\'re comfortable with progress every step of the way.'
-  },
-  {
-    id: 14,
-    category: 'process',
-    question: 'Do you provide project management and communication?',
-    answer: 'Yes, each project includes dedicated project management with regular check-ins, progress reports, and clear communication channels. We use modern project management tools and provide client portals for real-time project visibility.'
-  },
-  {
-    id: 15,
-    category: 'process',
-    question: 'What happens after my project is completed?',
-    answer: 'After completion, we provide training, documentation, and a transition period to ensure you\'re comfortable managing your new digital asset. We also offer ongoing support packages and are always available for future enhancements or questions.'
+    question: 'How is CI/CD integrated into our project?',
+    answer: 'Every project includes a robust automated pipeline. Every commit undergoes unit testing and security scanning before being staged or deployed to production.'
   },
 
   // Support FAQs
   {
-    id: 16,
+    id: 'Q-5001',
     category: 'support',
-    question: 'What kind of support do you provide post-launch?',
-    answer: 'We provide comprehensive post-launch support including bug fixes, security updates, performance monitoring, content updates, technical assistance, and feature enhancements. Our support packages are tailored to your specific needs and budget.'
+    question: 'What is your response protocol for critical alerts?',
+    answer: 'For Tier-1 infra support, we maintain a <2 hour response time with dedicated engineers monitored by automated system health checks.'
   },
   {
-    id: 17,
+    id: 'Q-5002',
     category: 'support',
-    question: 'How quickly do you respond to support requests?',
-    answer: 'We pride ourselves on responsive support! Critical issues are addressed within 2-4 hours, general support requests within 24 hours, and non-urgent inquiries within 48 hours. Emergency support is available for mission-critical applications.'
-  },
-  {
-    id: 18,
-    category: 'support',
-    question: 'Can you help with hosting and domain management?',
-    answer: 'Absolutely! We can help you choose the right hosting solution, manage domain registration and DNS settings, handle SSL certificates, and provide ongoing server management. We work with top hosting providers to ensure optimal performance.'
-  },
-  {
-    id: 19,
-    category: 'support',
-    question: 'Do you provide training for our team?',
-    answer: 'Yes, we provide comprehensive training sessions to help your team manage and update your digital assets. This includes content management training, basic troubleshooting, and best practices for maintaining your website or application.'
+    question: 'Do you provide platform monitoring?',
+    answer: 'Yes, we integrate real-time monitoring tools like Sentry and Datadog to track system health, error rates, and user engagement metrics 24/7.'
   }
 ]
 
 export default function FAQSection() {
   const [activeCategory, setActiveCategory] = useState('general')
-  const [openFAQ, setOpenFAQ] = useState<number | null>(1) // Start with first FAQ open
+  const [openFAQ, setOpenFAQ] = useState<string | null>('Q-1001')
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   const filteredFAQs = faqs.filter(faq => faq.category === activeCategory)
 
-  // Generate FAQ schema
   const faqSchema = createFAQSchema(
     faqs.map(faq => ({
       question: faq.question,
@@ -188,168 +138,155 @@ export default function FAQSection() {
     }))
   )
 
-  const toggleFAQ = (id: number) => {
+  const toggleFAQ = (id: string) => {
     setOpenFAQ(openFAQ === id ? null : id)
   }
 
   return (
     <>
-      {/* Schema Markup */}
       <SchemaComponent schema={faqSchema} id="faq-schema" />
 
-      <section ref={sectionRef} className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-[#f7961f]/5 rounded-full blur-2xl sm:blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-48 sm:w-72 md:w-96 h-48 sm:h-72 md:h-96 bg-[#242423]/5 rounded-full blur-2xl sm:blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] bg-gradient-radial from-orange-100/20 to-transparent rounded-full" />
+      <section ref={sectionRef} id="faq" className="py-24 bg-[#0a0a0a] relative overflow-hidden">
+        {/* Tech Grid Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(247,150,31,0.05),transparent_70%)]" />
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 relative z-10">
           {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
+          <div className="max-w-4xl mb-20 text-center mx-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f7961f]/10 text-[#e07a00] text-sm font-semibold mb-4"
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6"
             >
-              <HelpCircle className="w-4 h-4" />
-              FAQ
+              <Search className="w-3 h-3 text-[#f7961f]" />
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50">Knowledge Base v2.4</span>
             </motion.div>
 
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight"
             >
-              Frequently Asked{' '}
-              <span className="bg-gradient-to-r from-[#f7961f] to-[#e07a00] bg-clip-text text-transparent">
-                Questions
-              </span>
+              System <br className="md:hidden" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f7961f] to-[#ffb347]">Documentation</span>
             </motion.h2>
 
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-white/40 text-lg md:text-xl max-w-2xl mx-auto font-light"
             >
-              Find answers to common questions about our services and process.
+              Technical specifications and operational protocols for our digital deployments.
             </motion.p>
-          </motion.div>
+          </div>
 
-          {/* Category Filters */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12 sm:mb-16"
-          >
-            {faqCategories.map((category, index) => {
-              const Icon = category.icon
-              return (
-                <motion.button
-                  key={category.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                  onClick={() => setActiveCategory(category.id)}
-                  className={`group relative px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 text-sm sm:text-base ${activeCategory === category.id
-                    ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
-                    : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-gray-300 hover:shadow-md'
-                    }`}
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    <Icon className="w-4 h-4 sm:w-5 h-5" />
-                    <span className="hidden xs:inline">{category.name}</span>
-                  </span>
+          {/* Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 mb-16 max-w-5xl mx-auto">
+            {faqCategories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-mono transition-all border ${activeCategory === category.id
+                    ? 'bg-[#f7961f] border-[#f7961f] text-black font-bold'
+                    : 'bg-white/5 border-white/10 text-white/40 hover:bg-white/10 hover:text-white'
+                  }`}
+              >
+                <category.icon className="w-4 h-4" />
+                {category.name}
+              </button>
+            ))}
+          </div>
 
-                  {activeCategory === category.id && (
-                    <motion.div
-                      layoutId="activeCategory"
-                      className={`absolute inset-0 bg-gradient-to-r ${category.color} rounded-xl sm:rounded-2xl`}
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                </motion.button>
-              )
-            })}
-          </motion.div>
-
-          {/* FAQ Items */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="max-w-4xl mx-auto"
-          >
+          {/* FAQ Accordion */}
+          <div className="max-w-4xl mx-auto">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCategory}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="space-y-4 sm:space-y-6"
+                className="space-y-4"
               >
-                {filteredFAQs.map((faq, index) => (
-                  <motion.div
+                {filteredFAQs.map((faq) => (
+                  <div
                     key={faq.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+                    className={`border transition-all duration-300 rounded-2xl overflow-hidden ${openFAQ === faq.id
+                        ? 'border-[#f7961f]/40 bg-[#0f0f0f]'
+                        : 'border-white/5 bg-transparent hover:border-white/10'
+                      }`}
                   >
                     <button
                       onClick={() => toggleFAQ(faq.id)}
-                      className="w-full px-6 sm:px-8 py-6 sm:py-8 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
+                      className="w-full flex items-center justify-between p-6 text-left group"
                     >
-                      <span className="text-base sm:text-lg font-semibold text-gray-900 pr-4">
-                        {faq.question}
-                      </span>
-                      <motion.div
-                        animate={{ rotate: openFAQ === faq.id ? 180 : 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="flex-shrink-0"
-                      >
-                        <ChevronDown className="w-5 h-5 sm:w-6 h-6 text-gray-500" />
-                      </motion.div>
+                      <div className="flex items-center gap-4">
+                        <span className="hidden md:block text-[10px] font-mono text-[#f7961f]/40 group-hover:text-[#f7961f] transition-colors">
+                          {faq.id}
+                        </span>
+                        <h3 className={`text-lg font-bold transition-colors ${openFAQ === faq.id ? 'text-[#f7961f]' : 'text-white/80'
+                          }`}>
+                          {faq.question}
+                        </h3>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${openFAQ === faq.id ? 'rotate-180 text-[#f7961f]' : 'text-white/20'
+                        }`} />
                     </button>
 
                     <AnimatePresence>
                       {openFAQ === faq.id && (
                         <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
                         >
-                          <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-0">
-                            <div className="w-full h-px bg-gray-200 mb-6" />
-                            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                          <div className="px-6 pb-6 pl-6 md:pl-20">
+                            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-sm leading-relaxed text-white/50">
+                              <div className="flex items-center gap-2 mb-2 text-[#f7961f]/30">
+                                <Terminal className="w-3 h-3" />
+                                <span className="text-[9px] uppercase tracking-widest">Extended Data</span>
+                              </div>
                               {faq.answer}
-                            </p>
+                            </div>
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
                 ))}
               </motion.div>
             </AnimatePresence>
+          </div>
+
+          {/* Support Panel */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.6 }}
+            className="mt-20 max-w-3xl mx-auto p-8 rounded-3xl bg-[#f7961f] text-black flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-8 opacity-10">
+              <Cpu className="w-24 h-24" />
+            </div>
+
+            <div className="relative z-10 text-center md:text-left">
+              <h4 className="text-2xl font-black mb-2">Need a Technical Deep-Dive?</h4>
+              <p className="font-medium opacity-70">Schedule a 1-on-1 session with our architectural leads.</p>
+            </div>
+
+            <button className="relative z-10 px-8 py-3 bg-black text-white font-bold rounded-full hover:scale-105 transition-transform whitespace-nowrap">
+              Connect Now
+            </button>
           </motion.div>
         </div>
       </section>
-      <ProjectInquiryPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </>
   )
 }
