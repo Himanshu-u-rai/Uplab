@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import { Analytics } from '@vercel/analytics/next';
 import SchemaComponent from '@/components/ui/schema-component';
 import { organizationSchema, websiteSchema, servicesSchema, localBusinessSchema } from '@/lib/schema';
 
@@ -92,6 +93,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
